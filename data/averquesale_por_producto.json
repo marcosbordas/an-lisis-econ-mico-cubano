@@ -1,0 +1,1597 @@
+{
+    "arroz": [
+        {
+            "titulo": "Arroz brasileno 'Rampinelli', 1 kg",
+            "precio_original": "USD 1.59",
+            "precio_convertido": "651.90 CUP",
+            "tienda": "Jamazon",
+            "url": "https://www.tuambia.com/catalog/es-arroz-brasileno-rampinelli-1-kg-en-arroz-brasileno-rampinelli-1-kg"
+        },
+        {
+            "titulo": "Arroz blanco grano largo Nelson Wendt Emocoes (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.62",
+            "precio_convertido": "664.20 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-330522"
+        },
+        {
+            "titulo": "Arroz blanco grano largo Nelson Wendt Emocoes (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.65",
+            "precio_convertido": "676.50 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/arroz-blanco-grano-largo-nelson-wendt-emocoes-1-kg-22-lb-330522"
+        },
+        {
+            "titulo": "Arroz blanco tipo 1 Rainha (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.61",
+            "precio_convertido": "660.10 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/pastas-granos-y-cereales/arroz-blanco-tipo-1-rainha-1-kg-22-lb-7"
+        },
+        {
+            "titulo": "Arroz Super Extra 1 kg / 2.2 lb\nSAN DIEGO",
+            "precio_original": "USD 1.71",
+            "precio_convertido": "701.10 CUP",
+            "tienda": "Bazar Virtual",
+            "url": "https://www.bazar-virtual.ca/prod_detalle.php?id_dpto=1260&id_producto=36311&ddonde=1"
+        },
+        {
+            "titulo": "Arroz Blanco, 1 KG. , Tipo I, Dona Cristina.",
+            "precio_original": "USD 1.68",
+            "precio_convertido": "688.80 CUP",
+            "tienda": "Envio Cuba",
+            "url": "https://www.enviocuba.ca/mercado28/Item?ProdPid=1072264"
+        },
+        {
+            "titulo": "Arroz blanco brasileno Nelson Wendt (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.69",
+            "precio_convertido": "692.90 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/arroz-blanco-brasileno-nelson-wendt-1-kg-22-lb-322562"
+        },
+        {
+            "titulo": "Arroz blanco grano largo Nelson Wendt Emocoes (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.77",
+            "precio_convertido": "725.70 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-315423"
+        },
+        {
+            "titulo": "Arroz largo ADB Premium (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.81",
+            "precio_convertido": "742.10 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-161794"
+        },
+        {
+            "titulo": "Arroz grano largo Rampinelli (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.82",
+            "precio_convertido": "746.20 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-297831"
+        },
+        {
+            "titulo": "Arroz blanco grano largo Nelson Wendt Emocoes (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.83",
+            "precio_convertido": "750.30 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/arroz-blanco-grano-largo-nelson-wendt-emocoes-1-kg-22-lb-311411"
+        },
+        {
+            "titulo": "Arroz blanco grano largo Nelson Wendt Emocoes (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.80",
+            "precio_convertido": "738.00 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/arroz-blanco-grano-largo-nelson-wendt-emocoes-1-kg-22-lb-315423"
+        },
+        {
+            "titulo": "Arroz largo ADB Premium (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.84",
+            "precio_convertido": "754.40 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/arroz-largo-adb-premium-1-kg-22-lb-161794"
+        },
+        {
+            "titulo": "Arroz largo fino Vivarroz (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.83",
+            "precio_convertido": "750.30 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/arroz-largo-fino-vivarroz-1-kg-22-lb-326480"
+        },
+        {
+            "titulo": "Arroz grano largo Rampinelli (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.85",
+            "precio_convertido": "758.50 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/arroz-grano-largo-rampinelli-1-kg-22-lb-297831"
+        },
+        {
+            "titulo": "Arroz grano largo Disempre (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.88",
+            "precio_convertido": "770.80 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/arroz-grano-largo-disempre-1-kg-22-lb-156658"
+        },
+        {
+            "titulo": "Arroz grano largo Rampinelli (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.88",
+            "precio_convertido": "770.80 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/pastas-granos-y-cereales/arroz-grano-largo-rampinelli-1-kg-22-lb"
+        },
+        {
+            "titulo": "Arroz grano largo Rampinelli (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.89",
+            "precio_convertido": "774.90 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/297831"
+        },
+        {
+            "titulo": "Arroz grano largo Rampinelli (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.89",
+            "precio_convertido": "774.90 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/297831"
+        },
+        {
+            "titulo": "Arroz largo ADB Premium (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.88",
+            "precio_convertido": "770.80 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/161794"
+        },
+        {
+            "titulo": "Arroz Importado Guyanes (1 Kg)",
+            "precio_original": "USD 1.92",
+            "precio_convertido": "787.20 CUP",
+            "tienda": "ArgoMarket24",
+            "url": "https://argomarket24.com/shop/arroz-importado-11191"
+        },
+        {
+            "titulo": "Arroz Brilhante Brasileno (1 Kg)",
+            "precio_original": "USD 1.95",
+            "precio_convertido": "799.50 CUP",
+            "tienda": "ArgoMarket24",
+            "url": "https://argomarket24.com/shop/arroz-importado-13525"
+        },
+        {
+            "titulo": "Arroz blanco de grano largo Pateko (1 kg / 2.2 lb)",
+            "precio_original": "USD 1.95",
+            "precio_convertido": "799.50 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/arroz-blanco-de-grano-largo-pateko-1-kg-22-lb-310702"
+        }
+    ],
+    "avena": [
+        {
+            "titulo": "Avena en Hojuelas, 400 gr, La Merced",
+            "precio_original": "USD 1.25",
+            "precio_convertido": "512.50 CUP",
+            "tienda": "Envio Cuba",
+            "url": "https://www.enviocuba.ca/mercado28/Item?ProdPid=1062096"
+        },
+        {
+            "titulo": "Copos de avena Apti (150 g / 5.29 oz)",
+            "precio_original": "USD 1.22",
+            "precio_convertido": "500.20 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/copos-de-avena-apti-150-g-529-oz-293505"
+        },
+        {
+            "titulo": "Avena de copos gruesos Apti (150 g / 5.29 oz)",
+            "precio_original": "USD 1.23",
+            "precio_convertido": "504.30 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/avena-de-copos-gruesos-apti-150-g-529-oz-293509"
+        },
+        {
+            "titulo": "Avena El Puritano (450 g / 15.87 oz)",
+            "precio_original": "USD 1.23",
+            "precio_convertido": "504.30 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/avena-el-puritano-450-g-1587-oz-288539"
+        },
+        {
+            "titulo": "Copos de avena Apti (150 g / 5.29 oz)",
+            "precio_original": "USD 1.24",
+            "precio_convertido": "508.40 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/pastas-granos-y-cereales/copos-de-avena-apti-150-g-529-oz"
+        },
+        {
+            "titulo": "Avena de copos gruesos Apti (150 g / 5.29 oz)",
+            "precio_original": "USD 1.26",
+            "precio_convertido": "516.60 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/pastas-granos-y-cereales/avena-gruesa-en-copos-150-g-529-oz"
+        },
+        {
+            "titulo": "Avena de copos gruesos Apti (150 g / 5.29 oz)",
+            "precio_original": "USD 1.27",
+            "precio_convertido": "520.70 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/293509"
+        },
+        {
+            "titulo": "Copos de avena Apti (150 g / 5.29 oz)",
+            "precio_original": "USD 1.25",
+            "precio_convertido": "512.50 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/293505"
+        },
+        {
+            "titulo": "Avena de copos gruesos Apti (150 g / 5.29 oz)",
+            "precio_original": "USD 1.27",
+            "precio_convertido": "520.70 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/293509"
+        },
+        {
+            "titulo": "Copos de avena Apti (150 g / 5.29 oz)",
+            "precio_original": "USD 1.25",
+            "precio_convertido": "512.50 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/293505"
+        },
+        {
+            "titulo": "Avena instantanea con arandano y linaza Great Value (35 g / 1.23 oz)",
+            "precio_original": "USD 1.40",
+            "precio_convertido": "574.00 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/127958"
+        },
+        {
+            "titulo": "Avena instantanea con nueces, pasas y datiles Great Value (35 g / 1.23 oz)",
+            "precio_original": "USD 1.42",
+            "precio_convertido": "582.20 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-127957"
+        },
+        {
+            "titulo": "Avena instantanea con arandano y linaza Great Value (35 g / 1.23 oz)",
+            "precio_original": "USD 1.44",
+            "precio_convertido": "590.40 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/avena-instantanea-con-arandano-y-linaza-great-value-35-g-123-oz-127958"
+        },
+        {
+            "titulo": "Avena instantanea con nueces, pasas y datiles Great Value (35 g / 1.23 oz)",
+            "precio_original": "USD 1.44",
+            "precio_convertido": "590.40 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/avena-instantanea-con-nueces-pasas-y-datiles-great-value-35-g-123-oz-127957"
+        }
+    ],
+    "baston": [
+        {
+            "titulo": "Baston negro estandar",
+            "precio_original": "USD 18.83",
+            "precio_convertido": "7720.30 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/231260"
+        },
+        {
+            "titulo": "Baston negro estandar",
+            "precio_original": "USD 24.88",
+            "precio_convertido": "10200.80 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/277976"
+        },
+        {
+            "titulo": "Baston negro estandar",
+            "precio_original": "USD 21.47",
+            "precio_convertido": "8802.70 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/266060"
+        },
+        {
+            "titulo": "Baston negro estandar",
+            "precio_original": "USD 17.16",
+            "precio_convertido": "7035.60 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/165854"
+        },
+        {
+            "titulo": "Baston negro estandar",
+            "precio_original": "USD 21.47",
+            "precio_convertido": "8802.70 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/266060"
+        },
+        {
+            "titulo": "Baston negro estandar",
+            "precio_original": "USD 18.83",
+            "precio_convertido": "7720.30 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/231260"
+        },
+        {
+            "titulo": "Baston ligero plegable. Color negro.",
+            "precio_original": "USD 17.97",
+            "precio_convertido": "7367.70 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/farmacia-y-salud/equipos-insumos-y-accesorios/bastn-ligero-plegable-color-negro-1"
+        },
+        {
+            "titulo": "Baston ligero plegable. Color negro.",
+            "precio_original": "USD 17.98",
+            "precio_convertido": "7371.80 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/178798"
+        },
+        {
+            "titulo": "Baston ligero plegable. Color negro.",
+            "precio_original": "USD 17.98",
+            "precio_convertido": "7371.80 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/178798"
+        },
+        {
+            "titulo": "Baston plegable de aluminio",
+            "precio_original": "USD 22.64",
+            "precio_convertido": "9282.40 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-165943"
+        }
+    ],
+    "cereal": [
+        {
+            "titulo": "Cereal de chocolate",
+            "precio_original": "CUP 1700.00",
+            "precio_convertido": "CUP 1700.00",
+            "tienda": "Elyerromenu",
+            "url": "https://elyerromenu.com/b/el-garaje-mercado/seller/bazar-ym/product/cereal-de-chocolate-z"
+        }
+    ],
+    "culeros-geriatricos": [
+        {
+            "titulo": "Culeros para Adultos L 14und",
+            "precio_original": "USD 15.99",
+            "precio_convertido": "6555.90 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/mercado-bella-265?productSlug=culeros-para-adultos-l-14und-550518"
+        },
+        {
+            "titulo": "Culeros desechables para adultos Procare talla XL",
+            "precio_original": "USD 19.55",
+            "precio_convertido": "8015.50 CUP",
+            "tienda": "Enun2x3",
+            "url": "https://enun2x3.com/Shop/Product/1588"
+        },
+        {
+            "titulo": "Culeros de adultos PROCare Plus cantidad 10u talla: XL",
+            "precio_original": "USD 22.00",
+            "precio_convertido": "9020.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/comparsita-240?productSlug=culeros-de-adultos-cantidad-10-unidades-talla-m-314747"
+        },
+        {
+            "titulo": "Panales para adultos",
+            "precio_original": "CUP 4200.00",
+            "precio_convertido": "CUP 4200.00",
+            "tienda": "Elyerromenu",
+            "url": "https://elyerromenu.com/b/two7market/seller/bazar-ym/product/panales-para-adultos-u"
+        },
+        {
+            "titulo": "Panales para adultos talla L Comfortime (10)",
+            "precio_original": "USD 10.48",
+            "precio_convertido": "4296.80 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/panales-para-adultos-talla-l-comfortime-10-274844"
+        },
+        {
+            "titulo": "Culeros Talla 2",
+            "precio_original": "USD 15.00",
+            "precio_convertido": "6150.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/finca-la-pinta129?productSlug=culeros-de-bebe-talla-m-510kg50pcs-305924"
+        }
+    ],
+    "gelatina": [
+        {
+            "titulo": "Gelatina sabor uva YEYA (20 g)",
+            "precio_original": "USD 0.40",
+            "precio_convertido": "164.00 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-330303"
+        },
+        {
+            "titulo": "Gelatina sabor limon YEYA (20 g)",
+            "precio_original": "USD 0.40",
+            "precio_convertido": "164.00 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-330314"
+        },
+        {
+            "titulo": "Gelatina sabor limon YEYA (20 g)",
+            "precio_original": "USD 0.40",
+            "precio_convertido": "164.00 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330314"
+        },
+        {
+            "titulo": "Gelatina sabor uva YEYA (20 g)",
+            "precio_original": "USD 0.40",
+            "precio_convertido": "164.00 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330303"
+        },
+        {
+            "titulo": "Gelatina sabor cereza YEYA (20 g)",
+            "precio_original": "USD 0.44",
+            "precio_convertido": "180.40 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-330310"
+        },
+        {
+            "titulo": "Gelatina sabor fresa YEYA (20 g)",
+            "precio_original": "USD 0.43",
+            "precio_convertido": "176.30 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-330304"
+        },
+        {
+            "titulo": "Gelatina sabor cereza YEYA (20 g)",
+            "precio_original": "USD 0.45",
+            "precio_convertido": "184.50 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/gelatina-sabor-cereza-yeya-20-g-330310"
+        },
+        {
+            "titulo": "Gelatina sabor fresa YEYA (20 g)",
+            "precio_original": "USD 0.44",
+            "precio_convertido": "180.40 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/gelatina-sabor-fresa-yeya-20-g-330304"
+        },
+        {
+            "titulo": "Gelatina sabor limon YEYA (20 g)",
+            "precio_original": "USD 0.41",
+            "precio_convertido": "168.10 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/gelatina-sabor-limon-yeya-20-g-330314"
+        },
+        {
+            "titulo": "Gelatina sabor uva YEYA (20 g)",
+            "precio_original": "USD 0.41",
+            "precio_convertido": "168.10 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/gelatina-sabor-uva-yeya-20-g-330303"
+        },
+        {
+            "titulo": "Gelatina sabor cereza YEYA (20 g)",
+            "precio_original": "USD 0.43",
+            "precio_convertido": "176.30 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330310"
+        },
+        {
+            "titulo": "Gelatina sabor fresa YEYA (20 g)",
+            "precio_original": "USD 0.44",
+            "precio_convertido": "180.40 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330715"
+        },
+        {
+            "titulo": "Gelatina sabor uva YEYA (20 g)",
+            "precio_original": "USD 0.42",
+            "precio_convertido": "172.20 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330714"
+        },
+        {
+            "titulo": "Gelatina sabor limon YEYA (20 g)",
+            "precio_original": "USD 0.42",
+            "precio_convertido": "172.20 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330717"
+        },
+        {
+            "titulo": "Gelatina sabor fresa YEYA (20 g)",
+            "precio_original": "USD 0.44",
+            "precio_convertido": "180.40 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330780"
+        },
+        {
+            "titulo": "Gelatina sabor fresa YEYA (20 g)",
+            "precio_original": "USD 0.42",
+            "precio_convertido": "172.20 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330304"
+        },
+        {
+            "titulo": "Gelatina sabor cereza YEYA (20 g)",
+            "precio_original": "USD 0.45",
+            "precio_convertido": "184.50 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330716"
+        },
+        {
+            "titulo": "Gelatina sabor uva YEYA (20 g)",
+            "precio_original": "USD 0.42",
+            "precio_convertido": "172.20 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330779"
+        },
+        {
+            "titulo": "Gelatina sabor limon YEYA (20 g)",
+            "precio_original": "USD 0.42",
+            "precio_convertido": "172.20 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/330784"
+        },
+        {
+            "titulo": "Gelatina sabor pina Apti (20 g / 0.7 oz)",
+            "precio_original": "USD 0.65",
+            "precio_convertido": "266.50 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/gelatina-sabor-pina-apti-20-g-07-oz-293542"
+        },
+        {
+            "titulo": "Gelatina sabor frambuesa Qualimax (20 g)",
+            "precio_original": "USD 0.60",
+            "precio_convertido": "246.00 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/productos-envasados/gelatina-sabor-frambuesa-qualimax-20-g-1"
+        },
+        {
+            "titulo": "Gelatina sabor maracuya Apti (20 g / 0.7 oz)",
+            "precio_original": "USD 0.65",
+            "precio_convertido": "266.50 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/productos-envasados/gelatina-sabor-maracuy-apti-20-g-07-oz"
+        },
+        {
+            "titulo": "Gelatina sabor maracuya Apti (20 g / 0.7 oz)",
+            "precio_original": "USD 0.67",
+            "precio_convertido": "274.70 CUP",
+            "tienda": "Compremarket",
+            "url": "https://www.compremarket.com/catalog/gelatina-sabor-maracuya-apti-20-g-07-oz-293547"
+        },
+        {
+            "titulo": "Gelatina sabor uva Apti (20 g / 0.7 oz)",
+            "precio_original": "USD 0.71",
+            "precio_convertido": "291.10 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/gelatina-sabor-uva-apti-20-g-07-oz-293548"
+        }
+    ],
+    "huevos": [
+        {
+            "titulo": "HUEVOS FRESCOS CARTON DE 30 UNIDADES",
+            "precio_original": "USD 5.20",
+            "precio_convertido": "2132.00 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/envios-rapidos-48hs/alimentos-express/huevos-frescos-carton-de-30-unidades-mercazon-18493"
+        },
+        {
+            "titulo": "Carton de huevos marrones, 30 unidades",
+            "precio_original": "USD 5.48",
+            "precio_convertido": "2246.80 CUP",
+            "tienda": "Jamazon",
+            "url": "https://www.tuambia.com/catalog/es-carton-de-huevos-30-unidades-en-carton-de-huevos-30-unidades"
+        },
+        {
+            "titulo": "Carton de 30 Huevos Blancos Frescos de Producccion Nacional. Clase A",
+            "precio_original": "USD 5.90",
+            "precio_convertido": "2419.00 CUP",
+            "tienda": "CasaLinda",
+            "url": "https://www.casalindashop.it/catalog/es-cazuela-1-3-lt-de-vidrio-con-tapa-en-cazuela-1-3-lt-de-vidrio-con-tapa"
+        },
+        {
+            "titulo": "Carton de Huevos (15 unidades)",
+            "precio_original": "USD 6.80",
+            "precio_convertido": "2788.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/jackafe-227?productSlug=carton-de-huevos-frescos-15-unidades-232157"
+        },
+        {
+            "titulo": "Huevos 30u (Carton)",
+            "precio_original": "USD 6.99",
+            "precio_convertido": "2865.90 CUP",
+            "tienda": "Isla360",
+            "url": "https://isla360shop.com/producto/huevo-30u-carton/"
+        },
+        {
+            "titulo": "Carton de Huevos – 30 unidades",
+            "precio_original": "USD 7.21",
+            "precio_convertido": "2956.10 CUP",
+            "tienda": "cbm.tienda",
+            "url": "https://combitos.com/producto/carton-de-huevos-30-unidades/"
+        },
+        {
+            "titulo": "Carton de huevos blancos de 30 unidades",
+            "precio_original": "USD 7.70",
+            "precio_convertido": "3157.00 CUP",
+            "tienda": "Mercadame",
+            "url": "https://www.mercadamegroup.com/market/carton-de-huevos-blancos-de-30-unidades.html"
+        },
+        {
+            "titulo": "Carton de huevos marrones, 30 unidades",
+            "precio_original": "USD 7.95",
+            "precio_convertido": "3259.50 CUP",
+            "tienda": "TSO Tienda",
+            "url": "https://www.tsotienda.com/products/details/6934c5d46ebbea2dc484a578"
+        },
+        {
+            "titulo": "Huevos Carton marron",
+            "precio_original": "USD 8.00",
+            "precio_convertido": "3280.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/mercy-bar-cafe103?productSlug=huevos-30u-85"
+        },
+        {
+            "titulo": "Carton de Huevos 15u",
+            "precio_original": "USD 8.28",
+            "precio_convertido": "3394.80 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/lcteos/carton-de-huevos-15u"
+        },
+        {
+            "titulo": "Carton de Huevos  FRESCOS DIRECTO DE GRANJA  NO DE CONTENEDOR",
+            "precio_original": "USD 8.89",
+            "precio_convertido": "3644.90 CUP",
+            "tienda": "TiendaHabana",
+            "url": "https://tiendahabana.com/producto/carton-de-huevos-30-huevos/"
+        },
+        {
+            "titulo": "Carton de huevos",
+            "precio_original": "USD 10.00",
+            "precio_convertido": "4100.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/pan-y-mas?productSlug=carton-de-huevos-97"
+        },
+        {
+            "titulo": "Medio Carton de Huevos 15 unidades",
+            "precio_original": "USD 12.00",
+            "precio_convertido": "4920.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/los-ortiz-186?productSlug=medio-carton-de-huevo-75"
+        },
+        {
+            "titulo": "Carton de Huevos ( 30 unidades)",
+            "precio_original": "USD 12.60",
+            "precio_convertido": "5166.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/jackafe-227?productSlug=carton-de-huevos-65"
+        },
+        {
+            "titulo": "Medio carton de Huevos blancos",
+            "precio_original": "USD 13.00",
+            "precio_convertido": "5330.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/mas-habana-193?productSlug=medio-carton-de-huevo-231944"
+        },
+        {
+            "titulo": "Carton de huevos 30 unidades",
+            "precio_original": "USD 14.00",
+            "precio_convertido": "5740.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/el-polo-233?productSlug=carton-de-huevos-193731"
+        },
+        {
+            "titulo": "Carton de Huevos 30u",
+            "precio_original": "USD 15.36",
+            "precio_convertido": "6297.60 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/lcteos/carton-de-huevos-30u"
+        },
+        {
+            "titulo": "Carton de huevos de codorniz 30 unidades",
+            "precio_original": "USD 16.00",
+            "precio_convertido": "6560.00 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/todo-x-1450?productSlug=carton-de-huevo-de-codorniz-30unidades-266627"
+        },
+        {
+            "titulo": "Carton de huevos 30 unidades",
+            "precio_original": "USD 16.66",
+            "precio_convertido": "6830.60 CUP",
+            "tienda": "Tigercombos",
+            "url": "https://www.tigercombos.com/product-page/cart%C3%B3n-de-huevos-30-unidades"
+        }
+    ],
+    "jabon": [
+        {
+            "titulo": "Jabon de tocador con aroma a oliva Royal Lady (80 g / 2.82 oz)",
+            "precio_original": "USD 0.26",
+            "precio_convertido": "106.60 CUP",
+            "tienda": "Compremarket",
+            "url": "https://www.compremarket.com/catalog/jabon-de-tocador-con-aroma-a-oliva-royal-lady-80-g-282-oz-288037"
+        },
+        {
+            "titulo": "Jabon de tocador con aroma floral Royal Lady (80 g / 2.82 oz)",
+            "precio_original": "USD 0.27",
+            "precio_convertido": "110.70 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-305095"
+        },
+        {
+            "titulo": "Jabon de fragancia naranja Maf (70 g / 2.46 oz)",
+            "precio_original": "USD 0.26",
+            "precio_convertido": "106.60 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-308560"
+        },
+        {
+            "titulo": "Jabon de fragancia manzana Maf (70 g / 2.46 oz)",
+            "precio_original": "USD 0.26",
+            "precio_convertido": "106.60 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-308769"
+        },
+        {
+            "titulo": "Jabon de fragancia limon MAF (70 g / 2.46 oz)",
+            "precio_original": "USD 0.26",
+            "precio_convertido": "106.60 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-308559"
+        },
+        {
+            "titulo": "Jabon de fragancia uva Maf (70 g / 2.46 oz)",
+            "precio_original": "USD 0.26",
+            "precio_convertido": "106.60 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-309523"
+        },
+        {
+            "titulo": "JABON SUCHEL 90G",
+            "precio_original": "USD 0.26",
+            "precio_convertido": "106.60 CUP",
+            "tienda": "LoTengo",
+            "url": "https://tiendalotengo.com/store/habana/jabon-tocador-suchel-90g-25.html"
+        },
+        {
+            "titulo": "Jabon de fragancia manzana Maf (70 g / 2.46 oz)",
+            "precio_original": "USD 0.27",
+            "precio_convertido": "110.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-fragancia-manzana-maf-70-g-246-oz-308769"
+        },
+        {
+            "titulo": "Jabon de fragancia naranja Maf (70 g / 2.46 oz)",
+            "precio_original": "USD 0.27",
+            "precio_convertido": "110.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-fragancia-naranja-maf-70-g-246-oz-308560"
+        },
+        {
+            "titulo": "Jabon de tocador con aroma a naranja Royal Lady (80 g / 2.82 oz)",
+            "precio_original": "USD 0.26",
+            "precio_convertido": "106.60 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-tocador-con-aroma-a-naranja-royal-lady-80-g-282-oz-287338"
+        },
+        {
+            "titulo": "Jabon de tocador con aroma a naranja Royal Lady (80 g / 2.82 oz)",
+            "precio_original": "USD 0.27",
+            "precio_convertido": "110.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-tocador-con-aroma-a-naranja-royal-lady-80-g-282-oz-302000"
+        },
+        {
+            "titulo": "Jabon de tocador con aroma a naranja Royal Lady (80 g / 2.82 oz)",
+            "precio_original": "USD 0.28",
+            "precio_convertido": "114.80 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-tocador-con-aroma-a-naranja-royal-lady-80-g-282-oz-305100"
+        },
+        {
+            "titulo": "Jabon de tocador con aroma a oliva Royal Lady (80 g / 2.82 oz)",
+            "precio_original": "USD 0.27",
+            "precio_convertido": "110.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-tocador-con-aroma-a-oliva-royal-lady-80-g-282-oz-300097"
+        },
+        {
+            "titulo": "Jabon de tocador con aroma a oliva Royal Lady (80 g / 2.82 oz)",
+            "precio_original": "USD 0.28",
+            "precio_convertido": "114.80 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-tocador-con-aroma-a-oliva-royal-lady-80-g-282-oz-305090"
+        },
+        {
+            "titulo": "Jabon de tocador con aroma floral Royal Lady (80 g / 2.82 oz)",
+            "precio_original": "USD 0.26",
+            "precio_convertido": "106.60 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-tocador-con-aroma-floral-royal-lady-80-g-282-oz-292115"
+        },
+        {
+            "titulo": "Jabon de tocador con aroma floral Royal Lady (80 g / 2.82 oz)",
+            "precio_original": "USD 0.27",
+            "precio_convertido": "110.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-tocador-con-aroma-floral-royal-lady-80-g-282-oz-302002"
+        },
+        {
+            "titulo": "Jabon de fragancia limon MAF (70 g / 2.46 oz)",
+            "precio_original": "USD 0.27",
+            "precio_convertido": "110.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/jabon-de-fragancia-limon-maf-70-g-246-oz-308559"
+        }
+    ],
+    "leche-caja-1lt": [
+        {
+            "titulo": "Leche Entera Valle de Asturias (1Lt)",
+            "precio_original": "USD 2.55",
+            "precio_convertido": "1045.50 CUP",
+            "tienda": "Home Deli Mercado",
+            "url": "https://homedelimercado.com/products/leche-entera-valle-de-asturias-1lt"
+        },
+        {
+            "titulo": "Leche de Almendras Fiume (1lt)",
+            "precio_original": "USD 5.40",
+            "precio_convertido": "2214.00 CUP",
+            "tienda": "Home Deli Mercado",
+            "url": "https://homedelimercado.com/products/leche-de-almendras-fiume-1lt"
+        },
+        {
+            "titulo": "Leche Entera Asturiana (1lt)",
+            "precio_original": "USD 5.69",
+            "precio_convertido": "2332.90 CUP",
+            "tienda": "Mandao",
+            "url": "https://mandao.app/discover/1/product/59067"
+        },
+        {
+            "titulo": "Leche de Avena Bio Matt (1lt)",
+            "precio_original": "USD 6.04",
+            "precio_convertido": "2476.40 CUP",
+            "tienda": "Home Deli Mercado",
+            "url": "https://homedelimercado.com/products/leche-de-avena-bio-matt-1lt"
+        }
+    ],
+    "leche-en-polvo-html": [
+        {
+            "titulo": "Compuesto Lacteo – Combi – 1kg (Sustituto de Leche en Polvo)",
+            "precio_original": "USD 4.95",
+            "precio_convertido": "2029.50 CUP",
+            "tienda": "cbm.tienda",
+            "url": "https://combitos.com/producto/complejo-lacteo-combi-1kg/"
+        },
+        {
+            "titulo": "Leche De Chocolate En Polvo Macrofood (1kg)",
+            "precio_original": "USD 5.20",
+            "precio_convertido": "2132.00 CUP",
+            "tienda": "Mandao",
+            "url": "https://mandao.app/discover/1/product/58426"
+        },
+        {
+            "titulo": "Leche En Polvo (1kg)",
+            "precio_original": "USD 5.48",
+            "precio_convertido": "2246.80 CUP",
+            "tienda": "Mandao",
+            "url": "https://mandao.app/discover/1/product/55262"
+        },
+        {
+            "titulo": "Leche en Polvo MU (1kg) [Calidad Economica]",
+            "precio_original": "CUP 5.50",
+            "precio_convertido": "CUP 5.50",
+            "tienda": "Elyerromenu",
+            "url": "https://elyerromenu.com/b/envias/seller/bazar-ym/product/leche-en-polvo-amarilla-mu-1kg-calidad-economica"
+        },
+        {
+            "titulo": "Leche Entera En Polvo MacroFood (1kg)",
+            "precio_original": "USD 5.60",
+            "precio_convertido": "2296.00 CUP",
+            "tienda": "Mandao",
+            "url": "https://mandao.app/discover/1/product/58425"
+        },
+        {
+            "titulo": "Leche en polvo descremada Jimm (1kg / 2.2 lb)",
+            "precio_original": "USD 6.38",
+            "precio_convertido": "2615.80 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-298027"
+        },
+        {
+            "titulo": "Leche en polvo descremada Jimm (1kg / 2.2 lb)",
+            "precio_original": "USD 6.47",
+            "precio_convertido": "2652.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/leche-en-polvo-descremada-jimm-1kg-22-lb-298027"
+        },
+        {
+            "titulo": "Leche Entera en Polvo Pruebalo 1kg",
+            "precio_original": "USD 6.99",
+            "precio_convertido": "2865.90 CUP",
+            "tienda": "CompraToday",
+            "url": "https://www.compratoday.com/products/1435/"
+        },
+        {
+            "titulo": "Leche Entera en Polvo Loureiro 1kg",
+            "precio_original": "USD 6.99",
+            "precio_convertido": "2865.90 CUP",
+            "tienda": "CompraToday",
+            "url": "https://www.compratoday.com/products/540/"
+        },
+        {
+            "titulo": "Leche en polvo descremada Jimm (1kg / 2.2 lb)",
+            "precio_original": "USD 7.53",
+            "precio_convertido": "3087.30 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/298027"
+        },
+        {
+            "titulo": "Leche en Polvo Alawao 1kg",
+            "precio_original": "USD 7.99",
+            "precio_convertido": "3275.90 CUP",
+            "tienda": "Alawao",
+            "url": "https://alawao.com/producto/leche-en-polvo-alawao-1kg/"
+        },
+        {
+            "titulo": "Leche en Polvo Entera 1kg",
+            "precio_original": "USD 8.89",
+            "precio_convertido": "3644.90 CUP",
+            "tienda": "TiendaHabana",
+            "url": "https://tiendahabana.com/producto/leche-en-polvo-entera-1kg/"
+        },
+        {
+            "titulo": "Leche En Polvo Entera 1kg",
+            "precio_original": "USD 9.10",
+            "precio_convertido": "3731.00 CUP",
+            "tienda": "Mandao",
+            "url": "https://mandao.app/discover/1/product/54949"
+        },
+        {
+            "titulo": "Leche En Polvo Entera 1kg",
+            "precio_original": "USD 9.10",
+            "precio_convertido": "3731.00 CUP",
+            "tienda": "Mandao",
+            "url": "https://mandao.app/discover/1/product/54951"
+        },
+        {
+            "titulo": "Leche En Polvo Entera 1kg",
+            "precio_original": "USD 9.10",
+            "precio_convertido": "3731.00 CUP",
+            "tienda": "Mandao",
+            "url": "https://mandao.app/discover/1/product/54950"
+        },
+        {
+            "titulo": "Leche en polvo ALDAKETA 1kg",
+            "precio_original": "USD 9.31",
+            "precio_convertido": "3817.10 CUP",
+            "tienda": "Isla360",
+            "url": "https://isla360shop.com/producto/leche-en-polvo-aldaketa-1000g/"
+        },
+        {
+            "titulo": "Leche en polvo semidescremada 18% MG 1kg",
+            "precio_original": "USD 9.42",
+            "precio_convertido": "3862.20 CUP",
+            "tienda": "Isla360",
+            "url": "https://isla360shop.com/producto/leche-en-polvo-semidescremada-18-mg-1kg/"
+        },
+        {
+            "titulo": "Leche en Polvo Dobon (formula) 1kg + vitaminas",
+            "precio_original": "USD 9.60",
+            "precio_convertido": "3936.00 CUP",
+            "tienda": "TiendaHabana",
+            "url": "https://tiendahabana.com/producto/leche-entera-en-polvo-dobon-1kg-vitaminas/"
+        },
+        {
+            "titulo": "Leche entera en polvo MG 1kg",
+            "precio_original": "USD 9.99",
+            "precio_convertido": "4095.90 CUP",
+            "tienda": "Isla360",
+            "url": "https://isla360shop.com/producto/leche-entera-en-polvo-mg-1kg/"
+        }
+    ],
+    "lisinopril": [
+        {
+            "titulo": "Lisinopril 5 mg Lupin (1 tableta)",
+            "precio_original": "USD 0.18",
+            "precio_convertido": "73.80 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/190199"
+        },
+        {
+            "titulo": "Lisinopril 5 mg Lupin (1 tableta)",
+            "precio_original": "USD 0.16",
+            "precio_convertido": "65.60 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/227498"
+        },
+        {
+            "titulo": "Lisinopril 5 mg Lupin (1 tableta)",
+            "precio_original": "USD 0.16",
+            "precio_convertido": "65.60 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/227498"
+        },
+        {
+            "titulo": "Lisinopril 10 mg Anda Rx (1 tableta)",
+            "precio_original": "USD 0.20",
+            "precio_convertido": "82.00 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/312060"
+        },
+        {
+            "titulo": "Lisinopril 20 mg Lupin (1 tableta)",
+            "precio_original": "USD 0.18",
+            "precio_convertido": "73.80 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/312062"
+        },
+        {
+            "titulo": "Lisinopril 5 mg Lupin (1 tableta)",
+            "precio_original": "USD 0.18",
+            "precio_convertido": "73.80 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/190199"
+        },
+        {
+            "titulo": "Lisinopril 20 mg Lupin (1 tableta)",
+            "precio_original": "USD 0.24",
+            "precio_convertido": "98.40 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/190202"
+        },
+        {
+            "titulo": "Lisinopril Comprimidos 40 mg Anda RX (1 tableta)",
+            "precio_original": "USD 0.25",
+            "precio_convertido": "102.50 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/231052"
+        },
+        {
+            "titulo": "Lisinopril 20 mg Avet Pharma (1 tableta)",
+            "precio_original": "USD 0.22",
+            "precio_convertido": "90.20 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/317611"
+        },
+        {
+            "titulo": "Lisinopril Comprimidos 40 mg Anda RX (1 tableta)",
+            "precio_original": "USD 0.24",
+            "precio_convertido": "98.40 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/190203"
+        },
+        {
+            "titulo": "Lisinopril Comprimidos 40 mg Anda RX (1 tableta)",
+            "precio_original": "USD 0.25",
+            "precio_convertido": "102.50 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/231052"
+        },
+        {
+            "titulo": "Lisinopril Comprimidos 40 mg Anda RX (1 tableta)",
+            "precio_original": "USD 0.24",
+            "precio_convertido": "98.40 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/190203"
+        },
+        {
+            "titulo": "Lisinopril 20 mg Avet Pharma (1 tableta)",
+            "precio_original": "USD 0.22",
+            "precio_convertido": "90.20 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/317611"
+        },
+        {
+            "titulo": "Lisinopril 20 mg Lupin (1 tableta)",
+            "precio_original": "USD 0.24",
+            "precio_convertido": "98.40 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/190202"
+        },
+        {
+            "titulo": "Lisinopril 10 mg Anda Rx (1 tableta)",
+            "precio_original": "USD 0.45",
+            "precio_convertido": "184.50 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/190201"
+        },
+        {
+            "titulo": "Lisinopril 10 mg Anda Rx (1 tableta)",
+            "precio_original": "USD 0.48",
+            "precio_convertido": "196.80 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/304560"
+        },
+        {
+            "titulo": "Lisinopril 10 mg Lupin (1 tableta)",
+            "precio_original": "USD 0.49",
+            "precio_convertido": "200.90 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/320244"
+        }
+    ],
+    "papel-higienico": [
+        {
+            "titulo": "Papel Higienico Lirio",
+            "precio_original": "USD 1.00",
+            "precio_convertido": "410.00 CUP",
+            "tienda": "Beep Beep",
+            "url": "https://www.beepbeep.market/papel-higienico-lirio.html"
+        },
+        {
+            "titulo": "PAQUETE DE 4 ROLLOS DE PAPEL HIGIENICO VIRGEN",
+            "precio_original": "USD 1.00",
+            "precio_convertido": "410.00 CUP",
+            "tienda": "LoTengo",
+            "url": "https://tiendalotengo.com/store/habana/paquete-de-4-rollos-de-papel-higienico-virgen-16.html"
+        },
+        {
+            "titulo": "Papel higienico de 2 capas Pufla",
+            "precio_original": "USD 1.27",
+            "precio_convertido": "520.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/papel-higienico-de-2-capas-pufla-287444"
+        },
+        {
+            "titulo": "Papel higienico La Excelencia (4 U)",
+            "precio_original": "USD 1.28",
+            "precio_convertido": "524.80 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/papel-higienico-la-excelencia-4-u-295583"
+        },
+        {
+            "titulo": "Papel Higienico (4 Rollos) COVIRAN",
+            "precio_original": "USD 1.28",
+            "precio_convertido": "524.80 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/envios-rapidos-48hs/higiene-y-belleza-express/papel-higienico-4-rollos-coviran-mercazon-18346"
+        },
+        {
+            "titulo": "Papel higienico de 2 capas Pufla",
+            "precio_original": "USD 1.29",
+            "precio_convertido": "528.90 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/aseo-personal-belleza/cuidado-facial/papel-higinico-de-2-capas-pufla-1"
+        },
+        {
+            "titulo": "Papel higienico La Excelencia (4 U)",
+            "precio_original": "USD 1.30",
+            "precio_convertido": "533.00 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/aseo-personal-belleza/cuidado-facial/papel-higienico-la-excelencia-4-u"
+        },
+        {
+            "titulo": "Papel higienico de 2 capas Pufla",
+            "precio_original": "USD 1.30",
+            "precio_convertido": "533.00 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/287444"
+        },
+        {
+            "titulo": "Papel higienico La Excelencia (4 U)",
+            "precio_original": "USD 1.31",
+            "precio_convertido": "537.10 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/295583"
+        },
+        {
+            "titulo": "Papel higienico La Excelencia (4 U)",
+            "precio_original": "USD 1.31",
+            "precio_convertido": "537.10 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/295583"
+        },
+        {
+            "titulo": "Papel higienico de 2 capas Pufla",
+            "precio_original": "USD 1.30",
+            "precio_convertido": "533.00 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/287444"
+        },
+        {
+            "titulo": "Papel Higienico (4u) COVIRAN",
+            "precio_original": "USD 1.41",
+            "precio_convertido": "578.10 CUP",
+            "tienda": "Mercazon",
+            "url": "https://mercazon.com/es/product/18346"
+        },
+        {
+            "titulo": "Papel higienico El Rendidor Monarca (4 U)",
+            "precio_original": "USD 1.47",
+            "precio_convertido": "602.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/papel-higienico-el-rendidor-monarca-4-u-303454"
+        },
+        {
+            "titulo": "Papel Higienico 4 Rollos",
+            "precio_original": "USD 1.55",
+            "precio_convertido": "635.50 CUP",
+            "tienda": "Pymes Bulevar",
+            "url": "https://www.pymesbulevar.com/product?productId=f7ea9611-be5f-4c6f-a74c-1e3e498ed103&stockId=f7ea9611-be5f-4c6f-a74c-1e3e498ed103&name=Papel%20Higienico%204%20Rollos"
+        },
+        {
+            "titulo": "Papel Higienico Lujo 20 M Doble hoja",
+            "precio_original": "USD 1.70",
+            "precio_convertido": "697.00 CUP",
+            "tienda": "CasaLinda",
+            "url": "https://www.casalindashop.it/catalog/es-pappagallo-grande-inflables-427-x-327-en-pappagallo-grande-inflables-427-x-327"
+        },
+        {
+            "titulo": "Papel Higienico de Lujo Doble Hoja ProSito 4u",
+            "precio_original": "USD 1.69",
+            "precio_convertido": "692.90 CUP",
+            "tienda": "CompraToday",
+            "url": "https://www.compratoday.com/products/312/"
+        },
+        {
+            "titulo": "Papel higienico Ruffy (4 U)",
+            "precio_original": "USD 1.77",
+            "precio_convertido": "725.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/papel-higienico-ruffy-4-u-289701"
+        },
+        {
+            "titulo": "Papel higienico Ruffy (4 U)",
+            "precio_original": "USD 1.80",
+            "precio_convertido": "738.00 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/aseo-personal-belleza/cuidado-facial/papel-higienico-ruffy-4-u"
+        },
+        {
+            "titulo": "Papel higienico Ruffy (4 U)",
+            "precio_original": "USD 1.81",
+            "precio_convertido": "742.10 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/289701"
+        },
+        {
+            "titulo": "Papel higienico Ruffy (4 U)",
+            "precio_original": "USD 1.81",
+            "precio_convertido": "742.10 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/289701"
+        },
+        {
+            "titulo": "Papel higienico Tissue (4 U)",
+            "precio_original": "USD 1.90",
+            "precio_convertido": "779.00 CUP",
+            "tienda": "Compremarket",
+            "url": "https://www.compremarket.com/catalog/papel-higienico-tissue-4-u-294415"
+        },
+        {
+            "titulo": "Papel higienico Tissue (4 U)",
+            "precio_original": "USD 1.85",
+            "precio_convertido": "758.50 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/papel-higienico-tissue-4-u-294415"
+        },
+        {
+            "titulo": "Papel higienico Tissue (4 U)",
+            "precio_original": "USD 1.88",
+            "precio_convertido": "770.80 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/aseo-personal-belleza/cuidado-facial/papel-higinico-tissue-4-u"
+        }
+    ],
+    "pasta-dental": [
+        {
+            "titulo": "PASTA DENTAL SONRIE 85 ML",
+            "precio_original": "USD 0.83",
+            "precio_convertido": "340.30 CUP",
+            "tienda": "LoTengo",
+            "url": "https://tiendalotengo.com/store/habana/pasta-dental-sonrie-85-ml-12.html"
+        },
+        {
+            "titulo": "Pasta dental Crest 65g",
+            "precio_original": "USD 1.50",
+            "precio_convertido": "615.00 CUP",
+            "tienda": "Domicilio Havana",
+            "url": "https://www.domiciliohavana.com/product/pasta-dental-crest-65g/"
+        },
+        {
+            "titulo": "Pasta Dental Proteccion Contra Caries Astera Active (110 gr)",
+            "precio_original": "USD 1.50",
+            "precio_convertido": "615.00 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/envios-rapidos-48hs/higiene-y-belleza-express/pasta-dental-proteccion-contra-caries-astera-active-110-gr-mercazon-18445"
+        },
+        {
+            "titulo": "Pasta dental Aloe (105 g / 3.7 oz)",
+            "precio_original": "USD 1.54",
+            "precio_convertido": "631.40 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-308666"
+        },
+        {
+            "titulo": "Pasta dental Aloe (105 g / 3.7 oz)",
+            "precio_original": "USD 1.57",
+            "precio_convertido": "643.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/pasta-dental-aloe-105-g-37-oz-308666"
+        },
+        {
+            "titulo": "Pasta dental mentolada Coolwhite (120 g / 4.23 oz)",
+            "precio_original": "USD 1.57",
+            "precio_convertido": "643.70 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/pasta-dental-mentolada-coolwhite-120-g-423-oz-326645"
+        },
+        {
+            "titulo": "Pasta dental Aloe (105 g / 3.7 oz)",
+            "precio_original": "USD 1.59",
+            "precio_convertido": "651.90 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/aseo-personal-belleza/cuidado-corporal/pasta-dental-aloe-105-g-37-oz"
+        },
+        {
+            "titulo": "Pasta Dental Deemah",
+            "precio_original": "USD 1.65",
+            "precio_convertido": "676.50 CUP",
+            "tienda": "Alawao",
+            "url": "https://alawao.com/producto/pasta-dental-deemah/"
+        },
+        {
+            "titulo": "Pasta Dental Proteccion Contra Caries Astera Active (110 gr)",
+            "precio_original": "USD 1.65",
+            "precio_convertido": "676.50 CUP",
+            "tienda": "Mercazon",
+            "url": "https://mercazon.com/es/product/18445"
+        },
+        {
+            "titulo": "Pasta dental con proteccion de caries y blancura permanente Sanino (128 g / 4.51 oz)",
+            "precio_original": "USD 1.64",
+            "precio_convertido": "672.40 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/aseo-personal-belleza/cuidado-corporal/pasta-dental-con-proteccion-de-caries-y-blancura-permanente--313498"
+        },
+        {
+            "titulo": "Pasta dental con proteccion de caries y blancura permanente Sanino (128 g / 4.51 oz)",
+            "precio_original": "USD 1.65",
+            "precio_convertido": "676.50 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/313498"
+        },
+        {
+            "titulo": "Pasta dental Aloe (105 g / 3.7 oz)",
+            "precio_original": "USD 1.60",
+            "precio_convertido": "656.00 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/308666"
+        },
+        {
+            "titulo": "Pasta dental con proteccion de caries y blancura permanente Sanino (128 g / 4.51 oz)",
+            "precio_original": "USD 1.65",
+            "precio_convertido": "676.50 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/313498"
+        },
+        {
+            "titulo": "Pasta dental Aloe (105 g / 3.7 oz)",
+            "precio_original": "USD 1.60",
+            "precio_convertido": "656.00 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/308666"
+        },
+        {
+            "titulo": "Pasta Dental Bambu",
+            "precio_original": "CUP 1.60",
+            "precio_convertido": "CUP 1.60",
+            "tienda": "Elyerromenu",
+            "url": "https://elyerromenu.com/b/tienda-la-aurora/seller/bazar-ym/product/pasta-dental-bambu-s"
+        },
+        {
+            "titulo": "Pasta dental con proteccion de caries y blancura permanente Sanino (128 g / 4.51 oz)",
+            "precio_original": "USD 1.67",
+            "precio_convertido": "684.70 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-313498"
+        },
+        {
+            "titulo": "Pasta Dental Fresh Up Frescura Maxima",
+            "precio_original": "USD 1.70",
+            "precio_convertido": "697.00 CUP",
+            "tienda": "Mandao",
+            "url": "https://mandao.app/discover/1/product/59275"
+        },
+        {
+            "titulo": "Pasta dental con proteccion de caries y blancura permanente Sanino (128 g / 4.51 oz)",
+            "precio_original": "USD 1.70",
+            "precio_convertido": "697.00 CUP",
+            "tienda": "Mercatoria",
+            "url": "https://www.mercatoria.store/catalog/pasta-dental-con-proteccion-de-caries-y-blancura-permanente-sanino-128-g-451-oz-313498"
+        },
+        {
+            "titulo": "Pasta dental Alident 50g",
+            "precio_original": "USD 1.75",
+            "precio_convertido": "717.50 CUP",
+            "tienda": "CubaLlama",
+            "url": "https://www.cuballama.com/mercado/negocio/la-bicicleta-oldfashioned127?productSlug=pasta-dental-alident-50g-436732"
+        },
+        {
+            "titulo": "Pasta Dental 75ml - PIERROT",
+            "precio_original": "USD 1.75",
+            "precio_convertido": "717.50 CUP",
+            "tienda": "MallHabana",
+            "url": "https://mallhabana.com/belleza-salud-envios-a-cuba-mallhabana/43823-pasta-dental-75ml-pierrot.html"
+        },
+        {
+            "titulo": "Pasta dental con proteccion de caries y blancura permanente Sanino (128 g / 4.51 oz)",
+            "precio_original": "USD 1.73",
+            "precio_convertido": "709.30 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/314326"
+        },
+        {
+            "titulo": "Pasta dental con proteccion de caries y blancura permanente Sanino (128 g / 4.51 oz)",
+            "precio_original": "USD 1.73",
+            "precio_convertido": "709.30 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/314583"
+        }
+    ],
+    "pollo": [
+        {
+            "titulo": "Muslos de pollo – House of Raeford – Paquete – 4,54kg/10lb",
+            "precio_original": "USD 8.90",
+            "precio_convertido": "3649.00 CUP",
+            "tienda": "cbm.tienda",
+            "url": "https://combitos.com/producto/muslos-de-pollo-house-of-raeford-paquete-454kg-10lb/"
+        },
+        {
+            "titulo": "Paquete de Pollo 10lb Muslo y Contramuslo",
+            "precio_original": "CUP 3900.00",
+            "precio_convertido": "CUP 3900.00",
+            "tienda": "Elyerromenu",
+            "url": "https://elyerromenu.com/b/mercadito-hakuna-matata/seller/bazar-ym/product/paquete-de-pollo-10lb-muslo-y-contramuslo"
+        },
+        {
+            "titulo": "Paquete de Pollo",
+            "precio_original": "USD 16.95",
+            "precio_convertido": "6949.50 CUP",
+            "tienda": "Alawao",
+            "url": "https://alawao.com/producto/paquete-de-pollo-7/"
+        },
+        {
+            "titulo": "Paquete de pollo",
+            "precio_original": "CUP 4000.00",
+            "precio_convertido": "CUP 4000.00",
+            "tienda": "Elyerromenu",
+            "url": "https://elyerromenu.com/b/el-dicharazo/seller/bazar-ym/product/paquete-de-pollo-9"
+        },
+        {
+            "titulo": "Paquete de Pollo",
+            "precio_original": "CUP 3800.00",
+            "precio_convertido": "CUP 3800.00",
+            "tienda": "Elyerromenu",
+            "url": "https://elyerromenu.com/b/km25/seller/bazar-ym/product/paquete-de-pollo-l"
+        },
+        {
+            "titulo": "Paquete de Muslo de Pollo",
+            "precio_original": "USD 9.95",
+            "precio_convertido": "4079.50 CUP",
+            "tienda": "Alawao",
+            "url": "https://alawao.com/producto/paquete-de-muslo-de-pollo/"
+        },
+        {
+            "titulo": "Paquete de Pollo (10 Lb)",
+            "precio_original": "USD 21.60",
+            "precio_convertido": "8856.00 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/carnes/paquete-de-pollo-10-lb"
+        },
+        {
+            "titulo": "Paquete de Pollo (5 Lb)",
+            "precio_original": "USD 11.88",
+            "precio_convertido": "4870.80 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/carnes/paquete-de-pollo-5-lb"
+        },
+        {
+            "titulo": "Paquete de muslos de pollo Pida (1 kg / 2.2 lb)",
+            "precio_original": "USD 3.28",
+            "precio_convertido": "1344.80 CUP",
+            "tienda": "Compremarket",
+            "url": "https://www.compremarket.com/catalog/paquete-de-muslos-de-pollo-pida-1-kg-22-lb-314747"
+        },
+        {
+            "titulo": "Paquete de muslos de pollo Pida (2 kg / 4.4 lb)",
+            "precio_original": "USD 7.11",
+            "precio_convertido": "2915.10 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/carnes/paquete-de-muslos-de-pollo-pida-2-kg-44-lb-315829"
+        },
+        {
+            "titulo": "Paquete de muslos de pollo Pida (2.26 kg / 5 lb)",
+            "precio_original": "USD 8.03",
+            "precio_convertido": "3292.30 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/alimentos-y-bebidas/carnes/paquete-de-muslos-de-pollo-pida-226-kg-5-lb-315841"
+        },
+        {
+            "titulo": "Paquete de muslos de pollo Pida (1.35 kg / 3 lb)",
+            "precio_original": "USD 4.07",
+            "precio_convertido": "1668.70 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-315836"
+        }
+    ],
+    "vitamina-c (100 tabletas)": [
+
+        {
+            "titulo": "Vitamina C 250 mg Major (100 tabletas)",
+            "precio_original": "USD 6.16",
+            "precio_convertido": "2525.60 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/210046"
+        },
+        {
+            "titulo": "Vitamina C 250 mg Major (100 tabletas)",
+            "precio_original": "USD 6.16",
+            "precio_convertido": "2525.60 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/210046"
+        },
+        {
+            "titulo": "Vitamina C 250 mg Major (100 tabletas)",
+            "precio_original": "USD 6.28",
+            "precio_convertido": "2574.80 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-210046"
+        },
+        {
+            "titulo": "Vitamina C 250 mg Major (100 tabletas)",
+            "precio_original": "USD 6.24",
+            "precio_convertido": "2558.40 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/farmacia-y-salud/vitaminas-y-minerales/vitamina-c-250-mg-100-tabletas-4"
+        },
+        {
+            "titulo": "Vitamina C 250 mg Major (100 tabletas)",
+            "precio_original": "USD 6.25",
+            "precio_convertido": "2562.50 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/159627"
+        },
+        {
+            "titulo": "Vitamina C 500 mg (100 tabletas)",
+            "precio_original": "USD 7.39",
+            "precio_convertido": "3029.90 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/163335"
+        },
+        {
+            "titulo": "Vitamina C 500 mg (100 tabletas)",
+            "precio_original": "USD 7.53",
+            "precio_convertido": "3087.30 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-163335"
+        },
+
+        {
+            "titulo": "Vitamina C 250 mg Windmill (100 tabletas)",
+            "precio_original": "USD 10.60",
+            "precio_convertido": "4346.00 CUP",
+            "tienda": "Nercado",
+            "url": "https://nercado.com/es/product/farmacia-y-salud/vitaminas-y-minerales/vitamina-c-250-mg-100-tabletas"
+        },
+        {
+            "titulo": "Vitamina C 250 mg Windmill (100 tabletas)",
+            "precio_original": "USD 10.61",
+            "precio_convertido": "4350.10 CUP",
+            "tienda": "Recadostienda",
+            "url": "https://www.recadostienda.com/es/producto/178727"
+        },
+        {
+            "titulo": "Vitamina C 250 mg Windmill (100 tabletas)",
+            "precio_original": "USD 10.61",
+            "precio_convertido": "4350.10 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/178727"
+        },
+
+        {
+            "titulo": "Vitamina C 500 mg (100 tabletas)",
+            "precio_original": "USD 11.36",
+            "precio_convertido": "4657.60 CUP",
+            "tienda": "SuperMarket23",
+            "url": "https://www.supermarket23.com/es/producto/234684"
+        },
+
+        {
+            "titulo": "Vitamina C 500 mg (100 tabletas)",
+            "precio_original": "USD 11.60",
+            "precio_convertido": "4756.00 CUP",
+            "tienda": "Katapulk",
+            "url": "https://www.katapulk.com/cu/products/sm-234684"
+        }
+    ]
+}

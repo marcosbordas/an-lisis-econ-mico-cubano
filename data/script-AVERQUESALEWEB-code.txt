@@ -1,0 +1,58 @@
+from bs4 import BeautifulSoup
+import json
+import os
+
+def convertir_precio(precio_str):
+    tasa = 410
+    precio_str = precio_str.strip().upper()
+    if "USD" in precio_str:
+        try:
+            valor = float(precio_str.replace("USD", "").replace("$", "").strip())
+            valor_cup = valor * tasa
+            return f"{valor_cup:.2f} CUP"
+        except:
+            return precio_str
+    elif "CUP" in precio_str:
+        return precio_str
+    else:
+        return precio_str
+
+# Carpeta donde guardaste los HTML
+carpeta = r"C:\Users\drubi\Desktop\htmls,productos"
+
+# Diccionario para agrupar por producto
+resultados = {}
+
+for archivo in os.listdir(carpeta):
+    if archivo.endswith(".html"):
+        producto_buscado = archivo.replace(".html", "").lower()
+        ruta = os.path.join(carpeta, archivo)
+
+        with open(ruta, "r", encoding="utf-8") as f:
+            html = f.read()
+
+        soup = BeautifulSoup(html, "html.parser")
+
+        # Inicializar lista para este producto si no existe
+        if producto_buscado not in resultados:
+            resultados[producto_buscado] = []
+
+        for item in soup.find_all("div", class_="card-shadow"):
+            titulo = item.find("h4").get_text(strip=True) if item.find("h4") else ""
+            precio = item.find("div", class_="new_price").get_text(strip=True) if item.find("div", class_="new_price") else ""
+            tienda = item.find("div", class_="product_seller").get_text(strip=True) if item.find("div", class_="product_seller") else ""
+            enlace = item.find("a", class_="btn primary")["href"] if item.find("a", class_="btn primary") else ""
+
+            resultados[producto_buscado].append({
+                "titulo": titulo,
+                "precio_original": precio,
+                "precio_convertido": convertir_precio(precio),
+                "tienda": tienda,
+                "url": enlace
+            })
+
+# Guardar en JSON
+with open("data/averquesale_por_producto.json", "w", encoding="utf-8") as f:
+    json.dump(resultados, f, ensure_ascii=False, indent=4)
+
+print("Archivo guardado: averquesale_por_producto.json")

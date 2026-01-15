@@ -1,0 +1,3207 @@
+
+
+	const loadingbox = `
+	<div class="load-wrapper">
+		<div class="loader">
+			<div class="face">
+				<div class="circle"></div>
+			</div>
+			<div class="face">
+				<div class="circle"></div>
+			</div>
+			<div class="px-2">cargando</div>
+		</div>
+  	</div>`;
+
+	  const loading = `
+	  <div class="load-wrapper" id="loadingb">
+		  <div class="loader">
+			  <div class="face">
+				  <div class="circle"></div>
+			  </div>
+			  <div class="face">
+				  <div class="circle"></div>
+			  </div>
+			  <div class="px-2">cargando</div>
+		  </div>
+		</div>`;
+
+	const finish = `
+	<div id="finish">
+		<h4>No existen más artículos para mostrar.</h4>
+	</div>
+	`;
+
+	/// test drag
+	var draggable = document.getElementById('asistente');
+
+var posX = 0,
+    posY = 0,
+    mouseX = 0,
+    mouseY = 0;
+
+draggable.addEventListener('mousedown', mouseDown, false);
+draggable.addEventListener('touchmove', mouseDown, false);
+window.addEventListener('mouseup', mouseUp, false);
+window.addEventListener('touchend', mouseUp, false);
+
+function mouseDown(e) {
+  e.preventDefault();
+  posX = e.clientX - draggable.offsetLeft;
+  posY = e.clientY - draggable.offsetTop;
+  window.addEventListener('mousemove', moveElement, false);
+  jQuery("#asistente").css("cursor","grabbing");
+}
+
+function mouseUp() {
+  window.removeEventListener('mousemove', moveElement, false);
+  jQuery("#asistente").css("cursor","pointer");
+}
+
+function moveElement(e) {
+  mouseX = e.clientX - posX;
+  mouseY = e.clientY - posY;
+  draggable.style.left = mouseX + 'px';
+  draggable.style.top = mouseY + 'px';
+  draggable.style.bottom = 'auto';
+}
+
+// for mobile ///
+draggable.addEventListener('touchmove', function(e) {
+    // grab the location of touch
+    var touchLocation = e.targetTouches[0];
+    
+    // assign box new coordinates based on the touch.
+    draggable.style.left = touchLocation.pageX + 'px';
+    draggable.style.top = touchLocation.pageY + 'px';
+	draggable.style.bottom = 'auto';
+  });
+  draggable.addEventListener('touchend', function(e) {
+    // current box position.
+    var x = parseInt(draggable.style.left);
+    var y = parseInt(draggable.style.top);
+  });
+
+  	
+  	const sayHello = ()=>{
+		let halfScreen = jQuery('body').width()/2;
+		if(jQuery('#asistente').is(':visible')){
+			jQuery('#asistente').prepend('<div class="hello">Hola!, mi nombre es Mayito <p>Soy el asistente de A Ver Que Sale.</p></div>');
+		}
+	}
+
+	let toggleGrid=(el)=>{
+		if(el.is(':visible')){
+			el.css("display","none");
+		}else{
+			el.css("display","grid");
+		}
+	}
+
+	// search & share logic
+	let search, hsearch;
+	let showShare = ()=>{
+		if(jQuery("body.page-node-type-search-result").length){
+			jQuery(".encabezado .share").removeAttr("hidden");
+		}
+	}
+	let hideShare = ()=>{
+		if(jQuery("body.page-node-type-search-result").length){
+			jQuery(".encabezado .share").attr("hidden","");
+		}
+	}
+
+	// get active searchbox
+	let searchBox,hiddenSearchBox;
+	if(jQuery(".search-box-header").is(":visible")){
+
+		searchBox = jQuery(".search-box-header");
+		hiddenSearchBox = jQuery(".searchbox-wrapper");
+
+	}else{
+
+		hiddenSearchBox = jQuery(".search-box-header");
+		searchBox = jQuery(".searchbox-wrapper");
+
+	}
+
+	const validateSearch = ()=>{
+		
+		//validate text search value
+		let validText=false;
+		let currentValue = searchBox.children(".search-box").children(".search-text").val();
+		currentValue != "" && currentValue.length >1 ? validText = true : validText;
+		return validText;
+	}
+
+	const updateMobileFilters = (prov,curr)=>{
+		if(prov != "") { searchBox.find(".search-filters .province").val(prov); }
+		if(curr != "") { searchBox.find(".search-filters .currency").val(curr); }
+	}
+	const updatePcFilters = (prov,curr)=>{
+		if(prov != "") { searchBox.find(".search-box .province").val(prov); }
+		if(curr != "") { searchBox.find(".search-box .currency").val(curr); }
+	}
+
+	//function validate & go to search
+	const doSearch = ()=>{
+
+		if(validateSearch()){
+			let currentValue = searchBox.children(".search-box").children(".search-text").val();
+			searchBox.children(".error").html("").css("display","none");
+			// get province and params
+			let province = searchBox.find(".province").val();
+			let currency = searchBox.find(".currency").val();
+			updateMobileFilters(province,currency);
+			let qString = `?c=${currentValue}&pv=${province}&cur=${currency}&pg=0`;
+			sessionStorage.setItem("lastquery",qString);
+			window.location = "/search"+qString;
+
+			
+		}else{
+			searchBox.children(".error").html("El criterio de búsqueda no puede estar vacío y debe tener dos caracteres como mínimo.")
+			searchBox.children(".error").css("display","flex");
+			searchBox.children(".search-box").children(".search-text").focus().select();
+			return false;
+		}
+
+	}
+
+	getUrl = window.location;
+	baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
+
+/**************** INFINITE SCROLL **********************/
+const infiniteScroll = () => {
+
+	let pag = 0;
+	let no_elements = false;
+	var urlParams = new URL(window.location.href).searchParams;
+	let lasturl = "";
+	var logged_in = jQuery("#logged-in").val();
+	var member = jQuery("#is-member").val();
+	//funcion para cargar la pagina, params: url y #de pag
+	let loadNextPage = (pag) => {
+  
+		// si llegó al final se está mostrando el cartel, no se hace solicitud //
+		if (!jQuery("#finish").length) {
+
+			//mostrar el cargando
+			jQuery("section.infiniteblock").append(loading);
+
+			var baseParams ={
+				t:urlParams.get("c"),
+				p:urlParams.get("pv"),
+				c:urlParams.get("cur"),
+				or:urlParams.get("or"),
+				pg:pag,
+			};
+			if(urlParams.get('rp')){
+				baseParams.rp=urlParams.get('rp');
+			}
+			
+			if(urlParams.get('st')){
+				baseParams.st=urlParams.get('st');
+			}
+			if(urlParams.get('ct')){
+				baseParams.ct=urlParams.get('ct');
+			}
+
+
+			//carga la proxima pagina y agregala al bloque
+			jQuery.ajax({
+				method: "GET",
+				url: "/api/find",
+				dataType: 'json',
+				data: baseParams
+			}).done(function(response){
+				
+				//console.log(response);
+
+				let product="";
+				if(response.docs !=null && response.docs.length > 0 && response.status !=1){
+					
+					let end=null;
+					
+					if(response.totalDocs < 8 || response.totalDocs < 16 || response.totalDocs < 24){
+						end = response.totalDocs -1;
+					}
+
+					for( i=0; i < response.docs.length; i++){
+
+						var price,rounded_price,rounded_old_price,dc;
+						var product_btn,buttons ="";
+						
+						if(response.stores[response.docs[i]._source.code].default_currency == urlParams.get('cur')){
+							rounded_price = (response.docs[i]._source.new_price).toFixed(2);
+							rounded_old_price = (response.docs[i]._source.old_price).toFixed(2);
+	
+							if(parseFloat(response.docs[i]._source.old_price) > 0){
+								price =`
+								<div class="price">
+									<div class="new_price">${urlParams.get('cur')} ${rounded_price}</div>
+									<div class="old_price">${urlParams.get('cur')} ${rounded_old_price}</div>
+								</div>
+								`;
+							}else{
+								price =`
+								<div class="price">
+									<div class="new_price">${urlParams.get('cur')} ${rounded_price}</div>
+								</div>
+								`;
+							}
+	
+						}else{
+							
+							if(urlParams.get('cur') == "all"){
+
+								let store_curr = response.stores[response.docs[i]._source.code].default_currency;
+								let new_price =parseFloat(response.docs[i]._source.new_price).toFixed(2);
+								let old_price =parseFloat(response.docs[i]._source.old_price).toFixed(2);
+	
+								if(parseFloat(response.docs[i]._source.old_price) > 0){
+									price =`
+									<div class="price">
+										<div class="new_price">${store_curr} ${new_price}</div>
+										<div class="old_price">${store_curr} ${old_price}</div>
+									</div>
+									`;
+								}else{
+									price =`
+									<div class="price">
+										<div class="new_price">${store_curr} ${new_price}</div>
+									</div>
+									`;
+								}
+	
+							}else{
+								
+								let p_rate = response.stores[response.docs[i]._source.code].currency_rate[urlParams.get('cur')];
+								rounded_price = (response.docs[i]._source.new_price * p_rate).toFixed(2);
+								rounded_old_price = (response.docs[i]._source.old_price).toFixed(2);
+		
+								if(parseFloat(response.docs[i]._source.old_price) > 0){
+									price =`
+									<div class="price">
+										<div class="new_price">${urlParams.get('cur')} ${rounded_price}</div>
+										<div class="old_price">${urlParams.get('cur')} ${rounded_old_price}</div>
+									</div>
+									`;
+								}else{
+									price =`
+									<div class="price">
+										<div class="new_price">${urlParams.get('cur')} ${rounded_price}</div>
+									</div>
+									`;
+								}
+							}
+	
+						}
+
+						let baseCurr = response.stores[response.docs[i]._source.code].default_currency;
+						if (response.docs[i]._source.discount > 0){
+							dc=`<div class="discount">
+								<div class="d_price">-${Math.round(response.docs[i]._source.discount).toFixed(0)}%</div>
+							</div>`;
+						}else{
+							dc=`<div hidden class="discount"></div>`;
+						}
+						if(logged_in == 1){
+							buttons=`<a href="<no-link>"><i class="icon-notification" title="Crear alerta"></i></a>
+							<a href="<no-link>" class="compare" data="${response.docs[i]._id}" title="Comparar"><i class="icon-compare"></i></a>`;
+						}
+						if(logged_in==1 && member==1){
+							buttons +=`
+							<a href="/product?pid=${response.docs[i]._source.product_url}&cur=${urlParams.get("cur")}&base=${baseCurr}#history" title="Historial de precios"><i class="icon-price-history"></i></a>
+							`;
+						}
+	
+						if(logged_in == 1){
+							product_btn=`
+							<div class="product_btn d-flex justify-content-evenly">
+							${buttons}
+							</div>
+							`;
+						}else{
+							product_btn="";
+						}
+	
+						var prodImg="/themes/avqs-theme/images/none.png"
+						if(response.docs[i]._source.product_img_url != "None"){
+							prodImg = response.docs[i]._source.product_img_url;
+						}
+						
+						
+						product += `
+						
+						<div class="col-12 col-md-6 col-lg-4 col-xl-3 order-1 card-shadow">
+							${dc}
+							<div class="product_img_url"><a href="/product?pid=${response.docs[i]._source.product_url}&pv=${urlParams.get("pv")}&cur=${urlParams.get("cur")}&base=${baseCurr}"><img src="${prodImg}"></a></div>
+							<div class="product_name"><h4><a href="/product?pid=${response.docs[i]._source.product_url}&pv=${urlParams.get("pv")}&cur=${urlParams.get("cur")}&base=${baseCurr}">${response.docs[i]._source.product_name}</a></h4></div>
+							${product_btn}
+							${price}
+							<div class="product_bottom">
+								<div class="product_seller" data-code="${response.docs[i]._source.code}">${response.stores[response.docs[i]._source.code].name}</div>
+								<div class="product_url"><a class="btn primary" href="${response.docs[i]._source.product_url}" target="_blank">Visitar Tienda</a></div>
+							</div>
+						</div>`;
+						//for product details
+						sessionStorage.setItem(response.docs[i]._id,`{"curr:"${urlParams.get('cur')}","new_price":"${rounded_price}","old_price":"${rounded_old_price}"`);
+	
+						// publicidad //////////////////////////////////////////////
+						
+						if(member == 0){
+
+							switch (i) {
+								case 7:
+									if(response.totalDocs >=8 || response.totalDocs < 8){
+										// product += insertApub("#pub8a > iframe",'5602b8302131403030634bc7ca9d6e95',8);
+										// product += insertBpub("#pub8b > iframe",'5602b8302131403030634bc7ca9d6e95',8);
+										let pub8 = jQuery("#avqs_adSense_row_1").clone();
+									product+=`<div class="row pub-row-cloned  order-1 justify-space-between w-100 mx-auto">${pub8.html()}</div>`;
+									}
+									break;
+								case 15:
+									if(response.totalDocs >=16){
+										// product += insertApub("#pub16a > iframe",'5602b8302131403030634bc7ca9d6e95',16);
+										// product += insertBpub("#pub16b > iframe",'5602b8302131403030634bc7ca9d6e95',16);
+										let pub16 = jQuery("#avqs_adSense_row_2").clone();
+									product+=`<div class="row pub-row-cloned  order-1 justify-space-between w-100 mx-auto">${pub16.html()}</div>`;
+									}
+									break;
+								case 23:
+									if(response.totalDocs >=24){
+										// product += insertApub("#pub24a > iframe",'5602b8302131403030634bc7ca9d6e95',24);
+										// product += insertBpub("#pub24b > iframe",'5602b8302131403030634bc7ca9d6e95',24);
+										let pub24 = jQuery("#avqs_adSense_row_3").clone();
+									product+=`<div class="row pub-row-cloned  order-1 justify-space-between w-100 mx-auto">${pub24.html()}</div>`;
+									}
+									break;
+								case end:
+									// if(response.totalDocs < 8){
+										var pos = response.totalDocs;
+										let pub_ends = jQuery("#avqs_adSense_row_4").clone();
+										product+=`<div class="row pub-row-cloned  order-1 justify-space-between w-100 mx-auto">${pubends.html()}</div>`;
+									// }
+									break;
+							}
+						}
+						/////////////////////////////////////////////////////////////
+					}
+					
+					jQuery("#loadingb").fadeOut("fast").remove();
+					jQuery("section.infiniteblock .page-0").append(product);
+					
+					jQuery(".adsbygoogle").each(function () { (adsbygoogle = window.adsbygoogle || []).push({client_id:8829325632409489}); });
+
+				}else{
+
+					content=false;
+					jQuery("#loadingb").remove();
+					jQuery("section.infiniteblock").append(finish);
+					jQuery("#finish").fadeOut(3000);
+					no_elements = true;
+					pag = 0;
+					// pg = 1
+
+				}
+
+			});
+
+		} else {
+			if (no_elements == false) {
+				jQuery("#finish").show().fadeOut(3000);
+				pag = 0;
+				// pg = 1
+			}
+		}
+	};
+  
+	jQuery(window).bind("scroll", function () {
+		//si existe el bloque, evita que se ejecute en vistas que no llevan scroll. si es visible se aplica para los tabs de canales
+		if (
+			jQuery("section.infiniteblock").length &&
+			jQuery("section.infiniteblock").is(":visible") &&
+			jQuery("section.infiniteblock .page-0").length &&
+			!jQuery("section.infiniteblock .page-0 .load-wrapper").length
+		) {
+  
+			//let url = window.location.href.toString();
+  
+			//get la cadena de url
+			let urlstr = getUrl.href;
+			let infinite = Math.round(jQuery(".infiniteblock").offset().top + jQuery(".infiniteblock").outerHeight()) - (jQuery(window).height() - 36);
+  
+			//el scroll mas el tamaño del footer
+			var yScroll = Math.round(jQuery(window).scrollTop());
+			
+			//si llego al final a la posision del trigger
+			if (yScroll >= infinite) {
+ 
+				//compare querys for change & reset page //
+				if (lasturl != urlstr) {
+					pag = 0;
+					//  }
+					jQuery("#finish").remove();
+					lasturl = urlstr;
+				}
+				//controla el paginado
+				if (!jQuery("#loadingb").length && no_elements == false) {
+					pag = pag + 1;
+					//console.log('pagina '+pag);
+					loadNextPage(pag);
+				} else {
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+	});
+  
+};
+
+const insertApub = (elem, id,pos)=>{
+	let pub="";
+	let iBody_a = jQuery(elem).contents().find("body");
+	let iframeContent_a = iBody_a.find("#atContainer-"+id).html();
+	pub += `<div id="pub${pos}a-p${pos}" class="col-12 col-md-6 mb-5 pub-cloned order-1"><div class="cloned-${id}">${iframeContent_a}</div></div>`;
+	return pub;
+} 
+const insertBpub = (elem, id,pos)=>{
+	let pub="";
+	let iBody_b = jQuery(elem).contents().find("body");
+	let iframeContent_b = iBody_b.find("#atContainer-"+id).html();
+	pub += `<div id="pub${pos}b-p${pos}" class="col-12 col-md-6 mb-5 pub-cloned order-1"><div class="cloned-${id}">${iframeContent_b}</div></div>`;
+	return pub;
+} 
+
+const insertPubBlog = (elem, id)=>{
+	let pub="";
+	let iBody_a = jQuery(elem).contents().find("body");
+	let iframeContent_a = iBody_a.find("#atContainer-"+id).html();
+	pub += `<div class="cloned-${id}">${iframeContent_a}</div>`;
+	return pub;
+}
+
+const insertGpub = (order,pos)=>{
+	let pub="";
+	let adsCont= $("#pubGsearch").clone(); 
+	pub = `<div id="pubG_${order}${pos}" class="col-12 mb-5 pub-cloned order-1 card-shadow-on"><div class="cloned-${order}${pos}">${adsCont}</div></div>`;
+	return pub;
+} 
+
+// search results functions /////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+const goSearch = ()=>{
+
+	//get the querystring params
+	let urlParams = new URL(window.location.href).searchParams;
+
+	jQuery('.search-info .result-counter .tdocs').text('0').removeClass('colored');
+	jQuery('.search-info .result-counter .tstores').text('0').removeClass('colored');
+	jQuery('.search-info').hide();
+
+	if(urlParams.size > 0){
+		
+		//set selected search values in searchbox
+		jQuery(".search-box .search-text").val(urlParams.get("c"));
+		jQuery(".search-box .province").val(urlParams.get("pv"));
+		jQuery(".search-box .currency").val(urlParams.get("cur"));
+
+		//update checkboxes
+		jQuery(".search-filters .province").val(urlParams.get('pv'));
+		jQuery(".search-filters .currency").val(urlParams.get('cur'));
+
+		var baseParams ={
+			t:urlParams.get("c"),
+			p:urlParams.get("pv"),
+			c:urlParams.get("cur"),
+			pg:urlParams.get("pg"),
+			or:urlParams.get("or"),
+		};
+		if(urlParams.get('rp')){
+			baseParams.rp=urlParams.get('rp');
+		}
+		
+		if(urlParams.get('st')){
+			baseParams.st=urlParams.get('st');
+		}
+		if(urlParams.get('ct')){
+			baseParams.ct=urlParams.get('ct');
+		}
+		
+		var logged_in = jQuery("#logged-in").val();
+		var member = jQuery("#is-member").val();
+
+		// console.log("logged: "+logged_in);
+		// console.log("member: "+member);
+
+		showShare();
+		getFilters();
+
+		jQuery.ajax({
+			method: "GET",
+			url: "/api/find",
+			dataType: 'json',
+			data: baseParams 
+		}).done(function(response){
+			
+			// console.log(response);
+
+			if(response.docs != null && response.totalDocs > 0 && response.status ==3){
+				
+				let product="";
+				let end=null;
+				if(response.totalDocs < 8 || response.totalDocs < 16 || response.totalDocs < 24){
+					end = response.totalDocs -1;
+				}
+
+				//building results grid
+				for( i=0; i < response.docs.length; i++){
+
+					var price,rounded_price,rounded_old_price,dc;
+					var product_btn,buttons ="";
+					var current_curr="";
+					
+					if(response.stores[response.docs[i]._source.code].default_currency != null && response.stores[response.docs[i]._source.code].default_currency == urlParams.get('cur')){
+						rounded_price = (response.docs[i]._source.new_price).toFixed(2);
+						rounded_old_price = (response.docs[i]._source.old_price).toFixed(2);
+						current_curr = urlParams.get('cur');
+
+						if(parseFloat(response.docs[i]._source.old_price) > 0){
+							price =`
+							<div class="price">
+								<div class="new_price">${current_curr} ${rounded_price}</div>
+								<div class="old_price">${current_curr} ${rounded_old_price}</div>
+							</div>
+							`;
+						}else{
+							price =`
+							<div class="price">
+								<div class="new_price">${current_curr} ${rounded_price}</div>
+							</div>
+							`;
+						}
+
+					}else{
+						// console.log(response.stores[response.docs[i]._source.code].currency_rate[urlParams.get('cur')]);
+						if(urlParams.get('cur') == "all"){
+
+							let store_curr = response.stores[response.docs[i]._source.code].default_currency;
+							let new_price =parseFloat(response.docs[i]._source.new_price).toFixed(2);
+							let old_price =parseFloat(response.docs[i]._source.old_price).toFixed(2);
+							current_curr = store_curr;
+
+							if(parseFloat(response.docs[i]._source.old_price) > 0){
+								price =`
+								<div class="price">
+									<div class="new_price">${store_curr} ${new_price}</div>
+									<div class="old_price">${store_curr} ${old_price}</div>
+								</div>
+								`;
+							}else{
+								price =`
+								<div class="price">
+									<div class="new_price">${store_curr} ${new_price}</div>
+								</div>
+								`;
+							}
+
+						}else{
+							let p_rate = response.stores[response.docs[i]._source.code].currency_rate[urlParams.get('cur')];
+							rounded_price = (response.docs[i]._source.new_price * p_rate).toFixed(2);
+							rounded_old_price = (response.docs[i]._source.old_price).toFixed(2);
+							current_curr = urlParams.get('cur');
+
+							if(rounded_price == "NaN"){
+								rounded_price = (response.docs[i]._source.new_price).toFixed(2);
+							}
+							if(rounded_old_price == "NaN"){
+								rounded_old_price = (response.docs[i]._source.old_price).toFixed(2);
+							}
+
+							if(parseFloat(response.docs[i]._source.old_price) > 0){
+								price =`
+								<div class="price">
+									<div class="new_price">${current_curr} ${rounded_price}</div>
+									<div class="old_price">${current_curr} ${rounded_old_price}</div>
+								</div>
+								`;
+							}else{
+								price =`
+								<div class="price">
+									<div class="new_price">${current_curr} ${rounded_price}</div>
+								</div>
+								`;
+							}
+						}
+						
+
+					}
+					
+					let baseCurr = response.stores[response.docs[i]._source.code].default_currency;
+
+					if (response.docs[i]._source.discount > 0){
+						dc=`<div class="discount">
+							<div class="d_price">-${Math.round(response.docs[i]._source.discount).toFixed(0)}%</div>
+						</div>`;
+					}else{
+						dc=`<div hidden class="discount"></div>`;
+					}
+					if(logged_in == 1){
+						buttons=`<a href="/create-alert"><i class="icon-notification" title="Crear alerta"></i></a>
+								<a href="<no-link>" class="compare" data="${response.docs[i]._id}" data-store="${response.docs[i]._source.code}" data-currency="${current_curr}" title="Comparar"><i class="icon-compare"></i></a>`;
+					}
+					if(logged_in == 1 && member==1){
+						buttons +=`
+						<a href="/product?pid=${response.docs[i]._source.product_url}&cur=${urlParams.get("cur")}&base=${baseCurr}#history" title="Historial de precios"><i class="icon-price-history"></i></a>
+						`;
+					}
+
+					 if(logged_in == 1){
+						product_btn=`
+						<div class="product_btn d-flex justify-content-evenly">
+						${buttons}
+						</div>
+						`;
+					}else{
+						product_btn="";
+					}
+
+					var prodImg="/themes/avqs-theme/images/none.png"
+					if(response.docs[i]._source.product_img_url != "None"){
+						prodImg = response.docs[i]._source.product_img_url;
+					}
+
+					product += `
+					
+					<div class="col-12 col-md-6 col-lg-4 col-xl-3 order-1 card-shadow">
+						${dc}
+						<div class="product_img_url"><a href="/product?pid=${response.docs[i]._source.product_url}&pv=${urlParams.get("pv")}&cur=${urlParams.get("cur")}&base=${baseCurr}"><img src="${prodImg}"></a></div>
+						<div class="product_name"><h4><a href="/product?pid=${response.docs[i]._source.product_url}&pv=${urlParams.get("pv")}&cur=${urlParams.get("cur")}&base=${baseCurr}">${response.docs[i]._source.product_name}</a></h4></div>
+						${product_btn}
+						${price}
+						<div class="product_bottom">
+							<div class="product_seller" data-code="${response.docs[i]._source.code}">${response.stores[response.docs[i]._source.code].name}</div>
+							<div class="product_url"><a class="btn primary" href="${response.docs[i]._source.product_url}" target="_blank">Visitar Tienda</a></div>
+						</div>
+					</div>`;
+					//for product details
+					var datos = `{"curr":"${urlParams.get('cur')}","new_price":"${rounded_price}","old_price":"${rounded_old_price}","store":"${response.stores[response.docs[i]._source.code].name}"}`;
+					sessionStorage.setItem(response.docs[i]._id,datos);
+					
+					// publicidad //////////////////////////////////////////////
+					if(member == 0){
+
+						switch (i) {
+							case 7:
+								if((response.totalDocs >=8 || response.totalDocs < 8)){
+									//product+= generateAd(2,8,0);
+									let pub8 = jQuery("#avqs_adSense_row_1").clone();
+									product+=`<div class="row pub-row-cloned  order-1 justify-space-between w-100 mx-auto">${pub8.html()}</div>`;
+								}
+								break;
+							case 15:
+								if(response.totalDocs >=16){
+								// 	product += insertApub("#pub16a > iframe",'5602b8302131403030634bc7ca9d6e95',16);
+								// 	product += insertBpub("#pub16b > iframe",'5602b8302131403030634bc7ca9d6e95',16);
+								let pub16 = jQuery("#avqs_adSense_row_2").clone();
+									product+=`<div class="row pub-row-cloned  order-1 justify-space-between w-100 mx-auto">${pub16.html()}</div>`;
+								}
+								break;
+							case 23:
+								if(response.totalDocs >=24){
+									// product += insertApub("#pub24a > iframe",'5602b8302131403030634bc7ca9d6e95',24);
+									// product += insertBpub("#pub24b > iframe",'5602b8302131403030634bc7ca9d6e95',24);
+									let pub24 = jQuery("#avqs_adSense_row_3").clone();
+									product+=`<div class="row pub-row-cloned  order-1 justify-space-between w-100 mx-auto">${pub24.html()}</div>`;
+								}
+								break;
+							case end:
+								// if( jQuery("#avqs_adSense_row_4").length){
+									var pos = response.totalDocs;
+									let pub_end = jQuery("#avqs_adSense_row_4").clone();
+									product+=`<div class="row pub-row-cloned  order-1 justify-space-between w-100 mx-auto">${pub_end.html()}</div>`;
+								// }
+								break;
+						}
+
+					}
+					/////////////////////////////////////////////////////////////
+				}
+
+				//update total records
+				jQuery('.search-info .result-counter .tdocs').text(response.totalDocs).addClass('colored');
+
+				jQuery(".main-column section.search-result-grid .product-wrapper").append(product);
+				jQuery(".main-column section.search-result-grid .load-wrapper").remove();
+				jQuery('.search-info').css('display','flex');
+				jQuery(".main-column section.search-result-grid").show();
+
+				runAdSense();
+
+			}
+			else if(response.docs == null && response.status == 1 || response.status == 2){
+				jQuery(".main-column section").hide();
+				jQuery(".main-column section.search-result-expired").css("display","flex");
+			}
+			else if(response.docs != null && response.totalDocs ==0 && response.status == 3){
+				jQuery(".main-column section").hide();
+				jQuery(".main-column section.search-no-result").css("display","flex");
+			}
+			else if(response.status == 0 ){
+
+				jQuery(".main-column section").hide();
+				jQuery(".main-column section.search-net-error").css("display","flex");
+
+			}
+			
+		});
+
+	}else{
+		location.href=drupalSettings.path.baseUrl;
+	}
+}
+
+var categoriesInSearch,allStores,storeCats;
+var visibleCats=[];
+var initial_range=[];
+
+const getCategorys=()=>{
+	jQuery.ajax({
+		method: "GET",
+		url: "/commerce_lombao_search/get-category",
+		dataType: 'json',
+		data: {}
+	}).done(function(response){
+		if(response.data){
+			//get categories
+			var categories="";
+			var arrayResultado = [];
+			jQuery.each(response.data, function(key, value) {
+				// Agregar cada objeto al array
+				arrayResultado.push(value);
+				categories+=`<div class="custom-control custom-checkbox mb-2"><input type="checkbox" class="custom-control-input" name="${value.id}" id="category${key}" data="${value.name}"><label class="custom-control-label" for="category${key}">${value.name}</label></div>`;
+			});
+			jQuery('#category').append(`
+			<div class="category order-3">
+			<h4 class="title">Categorías:</h4>
+			<div>
+				${categories}
+				<input type="hidden" id="sel-cat" >
+			</div>
+			</div>`);
+			jQuery(".category").show();
+
+		}
+	});
+}
+
+jQuery(document).on("click",'#resetCategory',function(){
+	jQuery(window.location).attr('href', '/blog/all');
+});
+
+jQuery(document).on("click",'#applyCategory',function(){
+	let res = jQuery('#sel-cat').val();
+	let list = res.split(',');
+	var arrayResultado = "";
+	jQuery.each(list, function(key, value) {
+		// Agregar cada objeto al array
+		if (arrayResultado == "") {
+			arrayResultado = value;
+		}else{
+			arrayResultado = arrayResultado + "," + value;
+		}
+		
+	});
+	jQuery(window.location).attr('href', '/blog/cat/' + arrayResultado);
+});
+
+jQuery(document).on('click','#category .category :checkbox',function(){
+	let array_id = [];  
+
+		jQuery('#category .category :checkbox:checked').each(function(i){ 
+			array_id[i] = jQuery(this).attr('name');
+			jQuery('#sel-cat').val(array_id);
+		});  
+		if(jQuery('#category .category :checkbox:checked').length == 0){
+			array_id=[];
+			jQuery('#sel-cat').val('');
+		}
+});
+
+const getFilters=()=>{
+
+	//get the querystring params
+	let urlParams = new URL(window.location.href).searchParams;
+
+	jQuery.ajax({
+		method: "GET",
+		url: "/api/filters",
+		dataType: 'json',
+		data: { t:urlParams.get("c"),p:urlParams.get("pv"),c:urlParams.get("cur"),pg:urlParams.get("pg") }
+	}).done(function(response2){
+		
+		// console.log(response2);
+		if(response2.data){
+			if(response2.data.category != null && response2.data.category.length > 0){
+				categoriesInSearch = response2.data.category;
+			}
+			let left_column = false;
+
+			if(response2.data.category == null || response2.data.range_price == null || response2.data.stores == null){
+				left_column = true;
+				if(jQuery("#currency").val() == "all"){
+					jQuery(".filters .f-error").addClass("w-100").html("<span style='color:green' class='text-center'>Los filtros no se muestran</br>cuando se busca por todas las monedas.</br>Pronto estarán disponibles.</span>");
+				}else{
+					jQuery(".filters .f-error").addClass("w-100").html("<span class='text-center'>Error al cargar los datos.</span>");
+				}
+			}
+
+			if(response2.stores != null && left_column != true){
+				
+				//set global stores //
+				allStores = response2.stores;
+				let price_min,price_max =0;
+				
+				
+				// slider precios /////////////////////////////////////////////////////////////////////////////
+				if(urlParams.get('rp')){
+
+					let prm = urlParams.get('rp').split(',');
+					price_min = parseInt(prm[0]);
+					price_max = parseInt(prm[1]);
+
+					jQuery('#resetFilters').show();
+					
+				}else{
+					
+					if(parseFloat(response2.data.range_price[0]) < 1 ){
+						price_min = 0;
+					}else{
+						price_min = Math.floor(response2.data.range_price[0]);
+					}
+					price_max = Math.ceil(response2.data.range_price[1]);
+
+					initial_range = [price_min,price_max];
+				}
+					
+				var mySlider = jQuery("input.slider").slider({
+					range:true,
+					min:price_min,
+					max:price_max,
+					value:[price_min,price_max],
+					step:1,
+					tooltip:"hide",
+					enabled:true
+				});
+
+				//update on side
+				mySlider.on("slide", function(slideEvt) {
+					
+					jQuery(".filter-price-range .slider-label-min").text(slideEvt.value[0]);
+					jQuery(".filter-price-range .slider-label-max").text(slideEvt.value[1]);
+
+					if((slideEvt.value[0] > price_min || slideEvt.value[1] < price_max) || jQuery('.filters :checkbox:checked').length >0){
+						jQuery('#apply').removeAttr('disabled');
+						jQuery('#resetFilters').show();
+					}else{
+						jQuery('#apply').attr('disabled','disabled');
+					}
+
+				});
+				///////////////////////////////////////////////////////////////////////////////////////////////
+				
+				//get stores
+				var stores="";
+				for(i=0;i< response2.data.stores.length;i++){
+
+						stores+=`<div class="custom-control custom-checkbox mb-2 col-6 col-lg-12">
+						<input type="checkbox" class="custom-control-input" name="${response2.data.stores[i]}" id="store${[i]}">
+						<label class="custom-control-label" for="store${i}">${response2.stores[response2.data.stores[i]].name}</label>
+						</div>`;
+
+				}
+				jQuery('.left-column .filters').append(`
+				<div class="stores order-2">
+				<h4 class="title">Tiendas:</h4>
+				<div class="stores-list row m-0">
+					${stores}
+					<input type="hidden" id="sel-stores">
+				</div>
+				</div>`);
+
+				//get categories
+				var categories="";
+				for(i=0;i< response2.data.category.length;i++){
+					categories+=`<div class="custom-control custom-checkbox mb-2 col-6 col-lg-12"><input type="checkbox" class="custom-control-input" name="category${[i]}" id="category${[i]}" data="${response2.data.category[i]}"><label class="custom-control-label" for="category${i}">${response2.data.category[i]}</label></div>`;
+				}
+				jQuery('.left-column .filters').append(`
+				<div class="category order-3">
+				<h4 class="title">Categorías:</h4>
+				<span class="info d-block">Por favor, seleccione al menos una tienda para mostrar sus categorías.</span>
+				<div class="category-list row m-0">
+					${categories}
+					<input type="hidden" id="sel-cat" >
+				</div>
+				</div>`);
+
+				//set total stores
+				totStores = response2.data.stores.length;
+				if(totStores > 0 && jQuery("#currency").val() !='all'){
+					jQuery('.search-info .result-counter .tstores').text(totStores).addClass('colored').parent().removeClass('d-none');
+				}
+
+				//correct initial positions ranges
+				jQuery(".filter-price-range .slider-label-min").text(price_min);
+				jQuery(".filter-price-range .slider-label-max").text(price_max);
+				jQuery(".filter-price-range .slider .min-slider-handle").attr('style','left:0%');
+				jQuery(".filter-price-range .slider .max-slider-handle").attr('style','left:100%');
+				jQuery(".filter-price-range .slider .slider-track .slider-selection").attr('style','left:0%;width:100%');
+				jQuery(".filter-price-range .slider .min-slider-handle").attr('value_now',price_min);
+				jQuery(".filter-price-range .slider .max-slider-handle").attr('value_now',price_max);
+
+				//set current currency
+				jQuery(".filter-price-range .slider-label-currey").attr("data-currency",urlParams.get("cur"));
+
+				//show results
+				jQuery(".left-column .filters .load-wrapper").remove();
+				jQuery(".filter-price-range").show();
+				jQuery(".left-column .filters .stores").show();
+				jQuery(".left-column .filters .category").show();
+				jQuery("#apply").show();
+				//jQuery('#resetFilters').show();
+
+				if(urlParams.get('st')){
+					let t = urlParams.get('st').split(',');
+					console.log(t);
+					for(i=0;i<t.length;i++){
+						jQuery('.filters .stores input[name="'+t[i]+'"]').trigger('click');
+					}
+				}
+				if(urlParams.get('ct')){
+					let c = urlParams.get('ct').split(',');
+					console.log(c);
+					for(i=0;i<c.length;i++){
+						jQuery('.filters .category input[data="'+c[i]+'"]').trigger('click');
+					}
+				}
+				
+			}else{
+				//show errors
+				jQuery(".left-column .filters .load-wrapper").remove();
+				jQuery(".left-column .filters .f-error").show();
+			}
+		}
+		else{
+			//show errors
+			jQuery(".left-column .filters .load-wrapper").remove();
+			jQuery(".left-column .filters .f-error").show();
+		}
+
+	});
+}
+
+const getCatOnStoreClick = (store_code)=>{
+	//get the querystring params
+	let urlParams = new URL(window.location.href).searchParams;
+	jQuery('.filters .category .category-list .custom-checkbox').hide();
+	jQuery('.filters .stores em').fadeOut().remove();
+	jQuery('.filters .category').append(loading);
+	jQuery.ajax({
+		method: "GET",
+		url: "/api/filters",
+		dataType: 'json',
+		data: { t:urlParams.get("c"),p:urlParams.get("pv"),c:urlParams.get("cur"),pg:urlParams.get("pg"),st:store_code }
+	}).done(function(response2){
+		console.log("categorias de tienda ("+store_code+"): \n"+response2.data.category);
+		let catsObj=response2.data.category;
+		if(catsObj.length > 0){
+			//hide all
+			
+			
+			//show only cats in response
+			for (let i = 0; i < catsObj.length; i++){
+				jQuery('.filters .category .custom-checkbox input[data="'+catsObj[i]+'"]').parent().show();
+			}				
+			showStoreCats();
+		}
+	});
+}
+
+const storeValues=()=>{
+	let array_id = [];  
+	let urlParams = new URL(window.location.href).searchParams;
+
+		jQuery('.filters .stores :checkbox:checked').each(function(i){  
+			array_id[i] = jQuery(this).attr('name');
+			jQuery('#sel-stores').val(array_id);
+		});  
+		if(jQuery('.filters .stores :checkbox:checked').length == 0){
+			array_id=[];
+			jQuery('#sel-stores').val('');
+			urlParams.delete('st');
+			history.pushState(null,"Resultados de Búsqueda","search?"+urlParams);
+			// actualizo sesionStorage => lastquery //
+			sessionStorage.setItem("lastquery",'?'+urlParams);
+		}
+}
+
+const intersect_safe=(a, b)=>
+{
+	var result = a.filter(element => b.includes(element));
+
+	return result;
+}
+
+const showStoreCats = ()=>{
+	jQuery(".filters .category > #loadingb").remove();
+	if(jQuery('.filters .stores :checkbox:checked').length > 0){
+		jQuery('.filters .category .info').css({'height':'1px','opacity':'0'});
+		jQuery('.filters .category .category-list').css({'height':'fit-content',"display":"flex",'opacity':'1'});
+		
+	}else{
+		jQuery('.filters .category :checkbox:checked').trigger('click');
+		jQuery('.filters .category .info').css({'height':'fit-content','opacity':'1'});
+		jQuery('.filters .category .category-list').css({'height':'1px',"display":"none",'opacity':'0'});
+	}
+	jQuery('.filters .category h4.title').removeClass('up');
+}
+
+// const configCats = (store)=>{
+
+// 	storeCats=[];
+// 	var catDiff=[];
+// 	console.log(categoriesInSearch);
+
+// 	// storeCats = allStores[store].categorys.split(',');
+// 	// console.log(storeCats);
+
+// 	//compare and save new list
+// 	// catDiff = intersect_safe(storeCats,categoriesInSearch);
+// 	// console.log(catDiff);
+
+// 	//if(jQuery('input[name="'+store+'"]').is(':checked')){
+
+// 		// if(visibleCats.length > 0){
+// 		// //now chequea si no estan en visibleCats y agregalas
+// 		// 	catDiff=catDiff.filter(item => !visibleCats.includes(item));
+// 		// 	visibleCats+=catDiff;
+// 		// }else{
+// 		// 	visibleCats=catDiff;
+// 		// }
+		
+// 		//console.log(visibleCats);
+
+// 		// for (let i = 0; i < categoriesInSearch.length; i++) {
+// 		// 	if(	!visibleCats.includes(categoriesInSearch[i])){
+// 		// 		jQuery('.filters .category .custom-checkbox input[data="'+categoriesInSearch[i]+'"]').parent().hide();
+// 		// 	}else{
+// 		// 		jQuery('.filters .category .custom-checkbox input[data="'+categoriesInSearch[i]+'"]').parent().show();
+// 		// 	}
+// 		// }
+
+// 		showStoreCats();
+
+// }
+
+const catValues=()=>{
+	let array_id = [];  
+	let urlParams = new URL(window.location.href).searchParams;
+	
+		jQuery('.filters .category .category-list :checkbox:checked').each(function(i){  
+			array_id[i] = jQuery(this).attr('data'); 
+			jQuery('#sel-cat').val(array_id);
+		});  
+		if(jQuery('.filters .category :checkbox:checked').length ==0){
+			array_id=[];
+			jQuery('#sel-cat').val('');
+			urlParams.delete('ct');
+			history.pushState(null,"Resultados de Búsqueda","search?"+urlParams);
+			// actualizo sesionStorage => lastquery //
+			sessionStorage.setItem("lastquery",'?'+urlParams);
+		}
+}
+
+const changeQuerySting = ()=>{
+
+	//get the querystring params
+	let urlParams = new URL(window.location.href).searchParams;
+
+	// actualizo parametros de url //
+	urlParams.set("c",jQuery(".search-box .search-text").val());
+	urlParams.set("pv",jQuery(".search-box .province").val());
+	urlParams.set("cur",jQuery(".search-box .currency").val());
+	urlParams.set("pg",urlParams.get('pg'));
+
+	urlParams.set("or",jQuery("#order").val());
+
+	updateMobileFilters(urlParams.get('pv'),urlParams.get('cur'));
+	let prices,stores,categs=[];
+	prices = jQuery('input[name="price-range"]').val().split(',');
+
+	var iguales = true;
+	for (x=0;x<initial_range.length-1;x++)
+	{
+		if (initial_range[x] != prices[x])
+		{
+			iguales=true;
+		}else{
+			iguales = false;
+		}
+
+	} 
+
+	//precios siempre van
+	if(urlParams.get('rp') || !iguales){
+		urlParams.set('rp',prices);
+	}
+	
+	
+	if(jQuery('.filters .stores :checkbox:checked').length > 0){
+		stores = jQuery('#sel-stores').val().split(',');
+		urlParams.set('st',stores);
+	}else if(jQuery('.filters .stores :checkbox:checked').length == 0){
+		urlParams.delete('st');
+	}
+	else{
+		urlParams.delete('st');
+	}
+
+	if(jQuery('.filters .category :checkbox:checked').length > 0){
+		categs = jQuery('#sel-cat').val().split(',');
+		urlParams.set('ct',categs);
+	}else if(jQuery('.filters .category :checkbox:checked').length == 0){
+		urlParams.delete('ct');
+	}
+	else{
+		urlParams.delete('ct');
+	}
+
+	// actualiza la url del navegador sin refrescar //
+	history.pushState(null,"Resultados de Búsqueda","search?"+urlParams);
+	// actualizo sesionStorage => lastquery //
+	sessionStorage.setItem("lastquery",'?'+urlParams);
+	window.location = "/search?"+urlParams;
+}
+
+const addToCompare = (purl,pstore,pcurr,name) =>{
+
+		jQuery.ajax({
+		method: "POST",
+		url: "/api/set-product-compare",
+		dataType: 'json',
+		data: { id: purl,store:pstore,currency:pcurr }
+		}).done(function(response){
+
+			var addResponseOk = `
+			<div class="compare-wrapper">
+				<div class="compare-dialog">
+					<button class="close"><i class="icon-close"></i></button>
+					<h3 class="pord_name">${name}</h3>
+					<h4 class="message">${response.message}</h4>
+					<div class="footer mt-3">
+						<a class="btn primary gotolist" href="/compare">Ver lista de comparación</a>
+					</div>
+				</div>
+			</div>
+			`;
+			var addResponseFail= `
+			<div class="compare-wrapper">
+				<div class="compare-dialog">
+					<button class="close"><i class="icon-close"></i></button>
+					<h3 class="pord_name">${name}</h3>
+					<h4 class="message">El ${response.message}.</h4>
+					<div class="footer mt-3">
+						<a class="btn primary gotolist continue" href="<no-link>">Continuar</a>
+					</div>
+				</div>
+			</div>
+			`;
+			console.log(response.response);
+			if(response.response == true){
+				jQuery("body").prepend(addResponseOk);
+			}else{
+				jQuery("body").prepend(addResponseFail);
+			}
+		});
+	}
+
+const removeFromCompare = (prod_id)=>{
+	//to implement /api/delete-product-compare
+	jQuery.ajax({
+		method: "POST",
+		url: "/api/delete-product-compare",
+		dataType: 'json',
+		data: { id: prod_id }
+	}).done(function(response){
+		console.log(response);
+		
+		if(response.response == true){
+			jQuery(".list-product.column[data='"+prod_id+"']").addClass("bounce-out").fadeOut();
+			// window.location.reload();
+			jQuery.ajax({
+				method: "GET",
+				url: "/api/get-all-products",
+				dataType: 'json',
+				// data: { id: pid }
+			}).done(function(response){
+				console.log(response);
+				if(response.response.totalDocs === null || response.response.documents === null){
+					window.location.reload();
+				}
+			});
+
+		}
+	});
+}
+const cleanListCompare = ()=>{
+	
+	jQuery.ajax({
+		method: "POST",
+		url: "/api/clear-list-compare",
+		dataType: 'json',
+		// data: { id: pid }
+	}).done(function(response){
+		console.log(response.response);
+		if(response.response == true){
+			window.location.reload();
+		}
+	});
+}
+
+const suggest = (t)=>{
+	///commerce_lombao_search/get-suggestions
+	jQuery.ajax({
+		method: "GET",
+		url: "/commerce_lombao_search/get-suggestions",
+		dataType: 'json',
+		data: { text: t }
+	}).done(function(response){
+		console.log(response);
+		if(response){
+
+			let data =response ;
+			//data = data.replace(/[\[\]\']/g, "");
+			//data = data.split(", ");
+			console.log(data);
+	
+			var sug_list="";
+			for (let i = 0; i < data.length; i++) {
+				sug_list+=`
+				<div class="sugest-item">${data[i]}</div>
+				`;
+			}
+			if(jQuery("#suggest").is(":visible")){
+				jQuery("#suggest").html(sug_list);
+			}else{
+				jQuery("#suggest").html(sug_list).slideDown();
+			}
+		}
+		
+	});
+}
+const suggestH = (t)=>{
+	///commerce_lombao_search/get-suggestions
+	jQuery.ajax({
+		method: "GET",
+		url: "/commerce_lombao_search/get-suggestions",
+		dataType: 'json',
+		data: { text: t }
+	}).done(function(response){
+		console.log(response);
+		if(response){
+
+			let data =response ;
+			//data = data.replace(/[\[\]\']/g, "");
+			//data = data.split(", ");
+			// console.log(data);
+	
+			var sug_list="";
+			for (let i = 0; i < data.length; i++) {
+				sug_list+=`
+				<div class="sugest-item">${data[i]}</div>
+				`;
+			}
+			if(jQuery("#suggestH").is(":visible")){
+				jQuery("#suggestH").html(sug_list);
+			}else{
+				jQuery("#suggestH").html(sug_list).slideDown(200);
+			}
+		}
+		
+	});
+}
+const suggestClose = ()=>{
+	jQuery("#suggest").html("").slideUp(200);
+}
+const suggestCloseH = ()=>{
+	jQuery("#suggestH").html("").slideUp(200);
+}
+
+const runAdSense = ()=>{
+	jQuery("ins.adsbygoogle:visible").each(function () {
+		if(jQuery('body').children('script').attr('src').indexOf('adsbygoogle') > -1){
+			jQuery(this).remove();
+		}
+        addScript("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8829325632409489",true);
+     });
+}
+
+//gererate columns with adSense pub
+const generateAd = (cant,pos,pg)=>{
+let result ="";
+let bp = 12 / parseInt(cant);
+	for (let i = 1; i <= cant; i++) {
+		result += `<div id="pubG_${pg + i}_${pos}" class="col-12 col-md-${bp} mb-5 pub-cloned order-1"><div class=" card-shadow-on p-3 cloned_0${pg + i}_${pos}">
+					<ins class="adsbygoogle"
+					style="display:block"
+					data-ad-format="fluid"
+					data-ad-layout-key="-72+ep+q-6d+ap"
+					data-ad-client="ca-pub-8829325632409489"
+					data-ad-slot="8375622657"></ins>
+					<script>(adsbygoogle = window.adsbygoogle || []).push({});</script> 
+					</div>
+					</div>`;
+		
+	}
+	return result;
+}
+const addScript = (src, async, callback) => {
+	let js = document.createElement("script");
+	js.type = "text/javascript";
+	js.setAttribute("crossorigin", "anonymous");
+	if (async) js.async = true;
+	if (callback) js.onload = callback;
+	js.src = src;
+	document.body.appendChild(js);
+  }
+
+  const visitarClick = (s,u,prod,pr,c)=>{
+	   
+	let proce = pr.split(" ");
+	   let baseParams ={
+		   store:s,
+		   url:u,
+		   product:prod,
+		   price:pr,
+		   currency:c,
+	   };
+// console.log("salvar: "+baseParams);
+	   ///api/save-product-detail
+	//    jQuery.ajax({
+	// 	   method: "POST",
+	// 	   url: "/api/save-product-detail",
+	// 	   dataType: 'json',
+	// 	   data: baseParams 
+	//    }).done(function(response3){
+	// 	   console.log(response3);
+	// 	   if(response3){
+	// 		  window.location.href = u;
+	// 	   }
+	//    });
+  }
+
+// var price_min=0;
+// var price_max=100;
+var totStores = 0;
+
+jQuery(document).ready(function(){
+
+	
+	var helloInt;
+	//muestra el asistente al cargar la pagina//
+	// jQuery('#asistente').toggle();
+	// sayHello();
+	var logged_in = 0; 
+	if(drupalSettings.user.uid > 0){
+		logged_in = 1;
+	}
+
+	let urlParams = new URL(window.location.href).searchParams;
+	
+	if (urlParams.size != 0) {
+		if (urlParams["or"] == "") {
+			jQuery("#order").val("");
+		}else{
+			jQuery("#order").val(urlParams.get("or"));
+		}
+	}
+
+	productsMostVisit();
+
+	getCategorys();	
+	
+	jQuery(document).on("click", function(e) {
+        // Verifica si el clic fue fuera del bloque de recomendaciones
+        if (!jQuery(e.target).closest('#suggest').length) {
+            jQuery('#suggest').hide(); // Oculta el bloque
+        }
+		if (!jQuery(e.target).closest('#suggestH').length) {
+            jQuery('#suggestH').hide(); // Oculta el bloque
+        }
+    });
+
+	var intervalPopup = setInterval(addSettings, 300);
+	function addSettings() {
+		if(jQuery('.sp-form-outer').length){
+			if(jQuery('footer .sp-form-outer').length){
+				jQuery("footer .sp-form-outer .sp-form-fields-wrapper .sp-field .sp-control-label").remove();
+			}
+			jQuery(".sp-form-outer .sp-form-fields-wrapper .sp-field .sp-control-label > span").text("Correo electrónico");
+			jQuery(".sp-form-outer .sp-form-fields-wrapper .sp-field input.sp-form-control").attr("placeholder","Escriba su correo electrónico.");
+			clearInterval(intervalPopup);
+		}
+	}
+
+	infiniteScroll();
+
+	let np = jQuery("#block-avqs-navegacionprincipal > .menu").html();
+
+	if(!drupalSettings.user.uid > 0){
+		jQuery(document).on('click',".menu-top-wrapper.user .icon-menu",function(){
+			toggleGrid(jQuery("#block-avqs-menudecuentadeusuario .menu"));
+		});
+	}else{
+		jQuery(document).on('click',".menu-top-wrapper.user .bubble",function(){
+			toggleGrid(jQuery("#block-avqs-menudecuentadeusuario .menu"));
+		});
+	}
+
+	if(jQuery("body.user-logged-in.path-user").length){
+		if(jQuery("article.profile").length){
+			var rol = jQuery("#user_role").val();
+			jQuery("article.profile .field--name-user-picture").addClass(rol);
+		}
+	}
+
+	if(jQuery("body.path-frontpage").length){
+		// home
+
+		if(!drupalSettings.user.uid > 0){
+
+			jQuery("#block-avqs-menudecuentadeusuario .menu li a[href='/alerts-page']").parent('.menu-item').hide();
+			jQuery("#block-avqs-menudecuentadeusuario .menu li a[href='/compare']").parent('.menu-item').hide();
+			jQuery("#block-avqs-menudecuentadeusuario .menu li a[href='/analitic']").parent('.menu-item').hide();
+			//ocultar Mi blog si no es admin
+			
+		}
+		if(drupalSettings.user.uid != 1){
+			jQuery("#block-avqs-menudecuentadeusuario .menu li a[href*='/blog/']").parent('.menu-item').remove();
+		}
+
+		jQuery("#block-avqs-navegacionprincipal").show();
+		jQuery(".regions-header .encabezado").removeClass("col-md-3").addClass("col-md-9");
+		jQuery("#toolbar-item-user").addClass("d-lg-none");
+
+		/// show modal the first time.
+		if(localStorage.getItem("pub_show")==null || localStorage.getItem("pub_show") != 0){
+			jQuery('#subscribeModal').modal('show');
+		}
+		
+		jQuery("#switchSizeLarge").click(function(){
+			if(jQuery(this).is(':checked')){
+				localStorage.setItem("pub_show",0);
+				jQuery('#subscribeModal').modal('hide');
+			}else{
+				localStorage.setItem("pub_show",1);
+			}
+		});
+		
+	}else{
+		// not home////////////////////
+		jQuery(document).on('mouseleave',"#block-avqs-menudecuentadeusuario .menu",function(){
+			toggleGrid(jQuery("#block-avqs-menudecuentadeusuario .menu"));
+		});
+		
+		jQuery("#block-avqs-navegacionprincipal").hide();
+		jQuery(".regions-header .encabezado").removeClass("col-md-9").addClass("col-md-2");
+		
+		
+		if(!drupalSettings.user.uid > 0){
+
+			jQuery("#toolbar-item-user").removeClass("d-lg-none");
+			jQuery("#block-avqs-menudecuentadeusuario .menu li a[href='/alerts-page']").parent('.menu-item').hide();
+			jQuery("#block-avqs-menudecuentadeusuario .menu li a[href='/compare']").parent('.menu-item').hide();
+			jQuery("#block-avqs-menudecuentadeusuario .menu li a[href='/analitic']").parent('.menu-item').hide();
+
+			
+		}else{
+			
+			//ocultar Mi blog si no es admin
+			if(drupalSettings.user.uid != 1){
+				jQuery("#block-avqs-menudecuentadeusuario .menu li a[href*='/blog/']").parent('.menu-item').remove();
+			}
+			//clone de user menu
+			let leftmenu = jQuery("#block-avqs-menudecuentadeusuario .menu").clone();
+			if(jQuery("body.page-node-type-search-result").length || !jQuery("body.user-logged-in.path-user").length){
+				jQuery(".region-content > .left-column").remove();
+				jQuery(".region-content > .toggle-column").remove();
+			}else{
+
+				if(!jQuery(".left-column > .user-menu-wrapper > .left-menu").length && jQuery("body.user-logged-in.path-user").length){
+					jQuery(".left-column > .user-menu-wrapper").append(`<h3 class="title">Usuario:</h3>`);
+					jQuery(".left-column > .user-menu-wrapper").append(leftmenu);
+					jQuery(".left-column > .user-menu-wrapper > .menu").addClass("left-menu");
+				}
+			
+			}
+
+		}
+
+		
+
+		jQuery(document).on("click",".toggle-column",function(){
+			if(jQuery(".left-column").hasClass("closed")){
+				jQuery(".left-column").removeClass("closed").addClass("open");
+				jQuery(this).toggleClass("open");
+			}else{
+				jQuery(".left-column").removeClass("open").addClass("closed");
+				jQuery(this).toggleClass("open");
+			}
+		});
+
+	}
+
+	if((jQuery("#block-avqs-menudecuentadeusuario").is(":visible") && !jQuery("#block-avqs-navegacionprincipal").is(":visible")) || (jQuery("#search-text-h").is(":visible") && !jQuery("#block-avqs-navegacionprincipal").is(":visible")) ){
+		jQuery("#block-avqs-menudecuentadeusuario .menu").prepend(np);
+	}
+	
+	if(jQuery(window).width() < 360 ){
+		jQuery('body').html(`
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="d-flex justify-content-center"><img src="/themes/avqs-theme/images/logo.png" loading="lazy" width="50%" height="auto"></div>
+				<h4 class="title d-flex justify-content-center text-center mt-3">Lo sentimos, el sitio no está optimizado para su dispositivo</h4>
+				<h5 class="title d-flex justify-content-center text-justify mt-3">El sitio ha sido optimizado siguiendo los estándares actuales de la web por lo que estará disponible solamente para dispositivos con resoluciones a partir de 360 pixels.</h5>
+				<h5>Lamentamos las molestias que esto pueda ocasionarle.</h5>
+			</div>
+		`).attr('style','padding:1rem !important');
+	}
+	
+	if(jQuery(window).width() <= 991 ){
+
+		jQuery(".menu-top-wrapper.user").addClass("mobile");
+
+	}
+
+	if(jQuery(window).width() <= 767 ){
+
+		jQuery(document).on("change",".search-filters .province",function(e){
+			//alert(jQuery(this).val());
+			updatePcFilters(jQuery(this).val(),"");
+		});
+		jQuery(document).on("change",".search-filters .currency",function(e){
+			//alert(jQuery(this).val());
+			updatePcFilters("",jQuery(this).val());
+		});
+
+	}else{
+
+		jQuery(document).on("change",".search-box .province",function(e){
+			//alert(jQuery(this).val());
+			updateMobileFilters(jQuery(this).val(),"");
+		});
+		jQuery(document).on("change",".search-box .currency",function(e){
+			//alert(jQuery(this).val());
+			updateMobileFilters("",jQuery(this).val());
+		});
+
+	}
+	
+	//get text length on load from both search boxes
+	if(!jQuery("body.path-frontpage").length){
+		hsearch = jQuery("#search-text-h").val().length >=2 ? true : false ;
+		if(hsearch) showShare();
+	}
+
+	jQuery(document).on("keyup","#search-text-h",function(){
+		if(jQuery(this).val().length >=2){
+			showShare();
+
+		}else{
+			hideShare();
+		}
+	});
+
+	if(jQuery("#search-text-h").val().length >=2){
+		showShare();
+
+	}
+
+	//search suggestion
+	jQuery(document).on("keyup","#search-text-h",function(){
+		if(jQuery(this).val().length >=3){
+			suggest(jQuery(this).val());
+
+		}else{
+			suggestClose();
+		}
+	});
+	jQuery(document).on("click","#suggest >.sugest-item",function(){
+		jQuery(this).parent().parent().find('.search-text').val(jQuery(this).text());
+		jQuery('#search').trigger('click');
+		suggestClose();
+	});
+	jQuery(document).on("click","#suggestH >.sugest-item",function(){
+		jQuery(this).parent().parent().find('.search-text').val(jQuery(this).text());
+		jQuery('#search').trigger('click');
+		suggestClose();
+	});
+
+	jQuery(document).on("keyup","#search-text",function(){
+		if(jQuery(this).val().length >=3){
+			suggestH(jQuery(this).val());
+
+		}else{
+			suggestCloseH();
+		}
+	});
+
+	jQuery(document).on("keyup",".search-box .search-text",function(){
+		if(jQuery(this).val().length >1){
+			jQuery(this).parent().parent().children(".error").html("").css("display","none")
+		}
+	});
+
+	if(getUrl.href.indexOf("/user/register")){
+		jQuery(document).on("keyup","#edit-mail",function(){
+			// if(jQuery(this).val().length >1){
+				jQuery("#edit-name").val(jQuery(this).val());
+			// }
+	
+		});
+		let terms = `
+		<strong>Acepto los </strong>
+		<a href="/terms">Términos y Condiciones</a>.
+		`;
+		jQuery('label[for="edit-legal-accept"]').html(terms);
+	}
+
+	jQuery(document).on('click','.encabezado .share',function(){
+		jQuery('#block-avqs-addtoanysharebuttons').toggle();
+	});
+
+	// search button click si no es la página de resultados //
+	if(!jQuery("body.page-node-type-search-result").length){
+
+		jQuery(document).on("click","#search",function(){
+			doSearch();
+		});
+
+		jQuery(document).on("keypress",".search-box .search-text",function(e){
+			if(e.which==13){
+				jQuery("#search").trigger("click");
+			}
+		});
+
+	}
+
+	jQuery(document).on('click','.product_url',function(e){
+		//e.preventDefault();
+	   var btn_detail = jQuery(this).children('a');
+	   var prod_lnk = jQuery(this).children('a').attr('href');
+	   let price_currency = jQuery(this).parent().parent().find(".new_price").text();
+	   price_currency = price_currency.split(" ");
+	   
+	   let baseParams ={
+		   store:jQuery(this).parent().find('.product_seller').attr("data-code"),
+		   url:prod_lnk,
+		   product:jQuery(this).parent().parent().find('.product_name h4').text(),
+		   price:price_currency[1],
+		   currency:price_currency[0],
+	   };
+
+	   ///api/save-product-detail
+	   jQuery.ajax({
+		   method: "POST",
+		   url: "/api/save-product-detail",
+		   dataType: 'json',
+		   data: baseParams 
+	   }).done(function(response3){
+		   console.log(response3);
+		   if(response3){
+			   //btn_detail[0].click();
+			   jQuery('#pub8a-p8').find('a')[0].click();
+		   }
+	   });
+   });
+
+	//aqui lo que procesa en la página de resultados////////////////////////////
+	if(jQuery("body.page-node-type-search-result").length){
+		
+		var intervalIframe = setInterval(addStyle, 300);
+
+		var logged_in = jQuery("#logged-in").val();
+		var member = jQuery("#is-member").val();
+
+		// var pub8;
+		function addStyle() {
+			if(jQuery('.pub8 > iframe').length){
+				var css = `<style type="text/css">
+				#atContainer-5602b8302131403030634bc7ca9d6e95{display: flex;justify-content: center;padding: 5px;height: 90px;
+					img{width: auto;height: 78px;border-radius: 10px;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.5);}
+					</style>`;
+				jQuery("iframe").contents().find("head").append(css);
+				clearInterval(intervalIframe);
+			}
+		}
+
+		jQuery(".main-column .product-wrapper").append(loadingbox);
+		jQuery(".main-column .product-wrapper .card-shadow").remove();
+		jQuery(".main-column section.search-result-grid").show();
+		jQuery(".node--type-search-result .filters").prepend(loadingbox);
+
+		goSearch();
+
+		
+
+		//click en buscar en la pagina de resultados//
+		jQuery(document).on("click","#search",function(e){
+			e.preventDefault();
+			let searchBox = jQuery(this).parent().parent();
+			//let urlParams = new URL(window.location.href).searchParams;
+
+			if(validateSearch()){
+				
+				//update mobile filters
+				updateMobileFilters(jQuery(".search-box .province").val(),jQuery(".search-box .currency").val());
+				//reset 
+				if(jQuery('.filters .stores :checkbox:checked').length>0){
+					jQuery('.filters .stores :checkbox:checked').trigger("click");
+				}
+				let urlParams = new URL(window.location.href).searchParams;
+				urlParams.delete('rp');
+				urlParams.delete('st');
+				urlParams.delete('ct');
+				urlParams.set('c',jQuery(".search-box .search-text").val());
+				urlParams.set('pv',jQuery(".search-box .province").val());
+				urlParams.set('cur',jQuery(".search-box .currency").val());
+				// actualiza la url del navegador sin refrescar //
+				history.pushState(null,"Resultados de Búsqueda","search?"+urlParams);
+				// actualizo sesionStorage => lastquery //
+				sessionStorage.setItem("lastquery",'?'+urlParams);
+				window.location = "/search?"+urlParams;
+				//if(jQuery("#resetFilters").trigger("click")){
+				//changeQuerySting();
+				//}
+
+			}
+			else{
+
+			searchBox.children(".error").html("El criterio de búsqueda no puede estar vacío y debe tener dos caracteres como mínimo.")
+			searchBox.children(".error").css("display","flex");
+			searchBox.children(".search-box").children(".search-text").focus().select();
+			return false;
+
+			}
+			
+		});
+
+		//keypress on serach input, if Enter, just trigger search button
+		jQuery(document).on("keypress",".search-box .search-text",function(e){
+			if(e.which==13){
+				// jQuery("#resetFilters").trigger("click");
+				// jQuery("#search").trigger("click");
+				if(jQuery('.filters .stores :checkbox:checked').length>0){
+					jQuery('.filters .stores :checkbox:checked').trigger("click");
+				}
+				let urlParams = new URL(window.location.href).searchParams;
+				urlParams.delete('rp');
+				urlParams.delete('st');
+				urlParams.delete('ct');
+				urlParams.set('c',jQuery(".search-box .search-text").val());
+				urlParams.set('pv',jQuery(".search-box .province").val());
+				urlParams.set('cur',jQuery(".search-box .currency").val());
+				// actualiza la url del navegador sin refrescar //
+				history.pushState(null,"Resultados de Búsqueda","search?"+urlParams);
+				// actualizo sesionStorage => lastquery //
+				sessionStorage.setItem("lastquery",'?'+urlParams);
+				window.location = "/search?"+urlParams;
+			}
+		});
+
+		//click stores checkboxes
+		jQuery(document).on('click','.filters .stores :checkbox',function(){
+			storeValues();
+		});
+		
+		//click on one store checkbox
+		jQuery(document).on('click', '.filters .stores .custom-checkbox input[type="checkbox"]', function () {
+			let cats = "";
+			let wait = null;
+			clearTimeout(wait);
+			 if (jQuery('.filters .stores :checkbox:checked').length >= 1) {
+				
+				if(jQuery('.filters .stores em').length < 1){
+
+					jQuery('.filters .stores').append('<em>Ud. puede seleccionar más de una tienda en un intervalo de 3 segundos.</em>');
+				}
+				
+				jQuery('.filters .stores :checkbox:checked').each(function (index) {
+
+					if (index == jQuery('.filters .stores :checkbox:checked').length - 1) {
+						cats += jQuery(this).attr('name');
+					} else {
+						cats += jQuery(this).attr('name') + ",";
+					}
+
+				})
+				wait = setTimeout(() => {
+					getCatOnStoreClick(cats);
+				  }, 3000);
+			} 
+			else {
+				if(jQuery('.filters .stores em').length < 1){
+
+					jQuery('.filters .stores').append('<em>Ud. puede volver a seleccionar más de una tienda en un intervalo de 3 segundos.</em>');
+				}
+				wait = setTimeout(() => {
+					getCatOnStoreClick(cats);
+				  }, 3000);
+				
+			}
+console.log("selected store(s): "+cats);
+		});
+		//click categories checkboxes
+		jQuery(document).on('click','.filters .category :checkbox',function(){
+			catValues();
+		});
+
+		// enable/disable apply filters
+		jQuery(document).on("click",'.filters :checkbox',function(){
+			if(jQuery('.filters .stores :checkbox:checked').length >0){
+				jQuery('#apply').removeAttr('disabled');
+				jQuery('#resetFilters').show();
+			}else if(jQuery('.filters .category :checkbox:checked').length >0){
+				jQuery('#apply').removeAttr('disabled');
+				jQuery('#resetFilters').show();
+			}else{
+				jQuery('#apply').attr('disabled','disabled');
+			}
+		});
+
+		jQuery(document).on("click",'#apply',function(){
+			changeQuerySting();
+		});
+		jQuery(document).on("change",'#order',function(){
+			changeQuerySting();
+		});
+		jQuery(document).on("click",'#resetFilters',function(){
+
+			if(jQuery('.filters .stores :checkbox:checked').length>0){
+				jQuery('.filters .stores :checkbox:checked').trigger("click");
+			}
+			let urlParams = new URL(window.location.href).searchParams;
+			urlParams.delete('rp');
+			urlParams.delete('st');
+			urlParams.delete('ct');
+			urlParams.set('c',jQuery(".search-box .search-text").val());
+			urlParams.set('pv',jQuery(".search-box .province").val());
+			urlParams.set('cur',jQuery(".search-box .currency").val());
+			// actualiza la url del navegador sin refrescar //
+			history.pushState(null,"Resultados de Búsqueda","search?"+urlParams);
+			// actualizo sesionStorage => lastquery //
+			sessionStorage.setItem("lastquery",'?'+urlParams);
+			window.location = "/search?"+urlParams;
+		});
+
+		//hack addtoany
+		if(jQuery('#block-avqs-addtoanysharebuttons').length){
+			let fullurl = window.location.href;
+			console.log(fullurl);
+			jQuery('#block-avqs-addtoanysharebuttons span.addtoany_list').attr("data-a2a-url",fullurl);
+		}
+
+		// toogle stores
+		jQuery(document).on('click','.filters.left-menu .stores h4.title',function(e){
+			jQuery(this).toggleClass('up');
+			jQuery('.filters.left-menu .stores .stores-list').slideToggle(); 
+		})
+		// toogle categories
+		jQuery(document).on('click','.filters.left-menu .category h4.title',function(e){
+			jQuery(this).toggleClass('up');
+			jQuery('.filters.left-menu .category .category-list').slideToggle(); 
+		})
+		
+		jQuery(document).on('click','.search-no-result a[href="/create-alert"]',function(e){
+			e.preventDefault();
+			//get the querystring params
+			let urlParams = new URL(window.location.href).searchParams;
+			//clean de alert params
+			sessionStorage.removeItem("alert_type");
+			sessionStorage.removeItem("alert_search");
+			//set new alert
+			sessionStorage.setItem("alert_type","exist");
+			sessionStorage.setItem("alert_search",urlParams.get('c'));
+			//redirect
+			window.location =jQuery(this).attr('href');
+		});
+
+
+		jQuery(document).on('click','.page-node-type-search-result .product_btn a[href="/create-alert"]',function(e){
+			e.preventDefault();
+			//get the querystring params
+			let urlParams = new URL(window.location.href).searchParams;
+			//clean de alert params
+			sessionStorage.removeItem("alert_type");
+			sessionStorage.removeItem("alert_search");
+			sessionStorage.removeItem("alert_price");
+			sessionStorage.removeItem("alert_currency");
+			sessionStorage.removeItem("pid");
+			//set new alert
+			let prod_price = jQuery(this).parent().parent().find('.price .new_price').text().split(' ');
+			let prod_name = jQuery(this).parent().parent().find('.product_name h4').text();
+			sessionStorage.setItem("alert_type","price");
+			sessionStorage.setItem("alert_search",prod_name);
+			sessionStorage.setItem("alert_price",prod_price[1]);
+			sessionStorage.setItem("alert_currency",prod_price[0]);
+			//redirect
+			window.location =jQuery(this).attr('href');
+		});
+
+		jQuery(document).on('click','a.compare',function(e){
+			e.preventDefault();
+			let name = jQuery(this).parent().parent().find(".product_name h4 > a").text();
+			let price = jQuery(this).parent().parent().find(".price .new_price").text();
+			// let urlParams = new URL(window.location.href).searchParams;
+			// let curr = urlParams.get("cur");
+			addToCompare(jQuery(this).attr("data"),jQuery(this).attr("data-store"),jQuery(this).attr("data-currency"),name);
+		});
+
+		//runAdSense();
+
+}
+	if(jQuery("body.path-create-alert").length){
+		if(sessionStorage.getItem('alert_type')){
+			let a_type = sessionStorage.getItem('alert_type');
+			let alert_search = sessionStorage.getItem('alert_search');
+			switch (a_type) {
+				case 'exist':
+					jQuery('#edit-frecuency').val(a_type);
+					jQuery('#edit-title').val('Alerta: '+jQuery('#edit-frecuency option:selected').text()+': "'+alert_search+'"');
+					jQuery('#edit-body').val(sessionStorage.getItem('lastquery'));
+					break;
+				case 'price':
+					let alert_price = sessionStorage.getItem('alert_price');
+					let alert_curr = sessionStorage.getItem('alert_currency');
+					jQuery('#edit-frecuency').val(a_type);
+					jQuery('#edit-title').val('Alerta: '+jQuery('#edit-frecuency option:selected').text()+': "'+alert_search+'"');
+					if(sessionStorage.getItem('pid') !=null){
+						jQuery('#edit-body').val("/product?pid="+sessionStorage.getItem('pid'));
+					}else{
+						jQuery('#edit-body').val(sessionStorage.getItem('lastquery'));
+					}
+					jQuery('#edit-price').val(alert_price).parent().show();
+					jQuery('#edit-currency').val(alert_curr).parent().show();
+				break;
+		
+				default:
+					
+					break;
+			}
+		}else{
+			sessionStorage.removeItem("alert_type");
+			sessionStorage.removeItem("alert_search");
+			sessionStorage.removeItem("alert_price");
+			sessionStorage.removeItem("alert_currency");
+			sessionStorage.removeItem('pid')
+			history.back();
+		}
+	}
+	if(jQuery('body.path-alerts-page').length || jQuery('body article.profile').length){
+		//delete alert
+		var node_id = null;
+		const messages = new Drupal.Message();
+		// messages.clear();
+		jQuery(document).on('click','.mis-alertas span.delete img',function(){
+			node_id = jQuery(this).attr('data');
+			jQuery("#removeAlert .delete").attr("data",node_id);
+			
+			jQuery('#removeAlert').fadeIn('fast').addClass('show');
+		});
+
+		jQuery(document).on('click','#removeAlert .delete',function(){
+			jQuery('#removeAlert').removeClass('show').fadeOut("slow");
+			
+			jQuery.ajax({
+				method: "POST",
+				url: "/api/delete-alert",
+				dataType: 'json',
+				data: {id:jQuery(this).attr("data")} 
+			}).done(function(response)
+					{
+						console.log(response);
+						node_id= null;
+						if(response.response){
+							
+							window.location = "/alerts-page";
+							messages.add(response.message, {type: 'status'});
+							
+						}
+					}
+				);
+
+		});
+		jQuery(document).on('click','#removeAlert .cancel',function(){
+			jQuery('#removeAlert').removeClass('show').fadeOut("slow");
+			node_id= null;
+		})
+
+	}
+
+	// pagina detalle del producto
+	if(jQuery("body.page-node-type-details-product").length){
+		let urlParams = new URL(window.location.href).searchParams;
+		var store_code = "";
+		var prod_url ="";
+
+		if(!urlParams){
+			window.location="/";
+		}else{
+			jQuery("#currency").val(urlParams.get("cur"));
+			var sel_cur = urlParams.get("cur");
+			var base_curr = urlParams.get("base");
+			jQuery(".product-detail").parent().prepend(loading);
+			jQuery('#loadingb').addClass('my-5');
+			
+			jQuery.ajax({
+				method: "GET",
+				url: "/api/get-product",
+				dataType: 'json',
+				data: {id:urlParams.get("pid"), pv:urlParams.get("pv")} 
+			}).done(function(response)
+				{
+					console.log(response);
+					var product = response.documents[0][0];
+					//get data from card
+					var item =JSON.parse(sessionStorage.getItem(product._id));
+					console.log(item);
+					var prodImg="/themes/avqs-theme/images/none.png"
+					if(product._source.product_img_url != "None"){
+						prodImg = product._source.product_img_url;
+					}
+					var prodDesc="No hay descripción disponible"
+					if(product._source.product_description != "None"){
+						prodDesc = product._source.product_description;
+					}
+					jQuery(".product-detail a.compare").attr("data",product._source.product_url);
+					jQuery(".product-detail a.compare").attr("data-store",product._source.code);
+					jQuery(".product-detail a.compare").attr("data-currency",item.curr);
+					//render elements
+					jQuery(".product-detail .product_img_url").html(`<img class="img-fluid rounded-1" lazyload src="${prodImg}">`);
+					jQuery(".product-detail .product_name").html(`<h4>${product._source.product_name}</h4>`);
+					jQuery(".product-detail .product_description").html(`${prodDesc}`);
+					if(urlParams.get('cur')=='all'){
+						sel_cur = base_curr;
+					}
+					jQuery(".product-detail .price .new_price").html(`${sel_cur} ${parseFloat(product._source.new_price).toFixed(2)}`);
+					if(item.old_price > 0){
+						jQuery(".product-detail .price .old_price").html(`${sel_cur} ${parseFloat(product._source.old_price).toFixed(2)}`);
+					}else{
+						jQuery(".product-detail .price .old_price").remove();
+					}
+					jQuery(".product-detail .product_seller").html(`${item.store}`);
+					jQuery(".product-detail .product_seller").attr("data-code",product._source.code);
+					jQuery(".product-detail .product_url a").attr("href",product._source.product_url);
+
+					store_code=product._source.code;
+					prod_url=product._source.product_url;
+				
+
+					let logged_in = jQuery("#is_logged").val();
+					let is_member = jQuery("#is_member").val();
+					console.log("logged: "+logged_in);
+					console.log("member: "+is_member);
+
+					jQuery(".product-detail").removeClass('d-none');
+					jQuery("#loadingb").remove();
+					if(logged_in == 1 && is_member == 1){
+						// historial de precio, ultimos 30 dias
+						Chart.defaults.font.size = 18;
+						Chart.defaults.color = '#215671';
+						const ctx = document.getElementById('myChart');
+
+						///custom_lombao_product/product-history
+						jQuery.ajax({
+							method: "GET",
+							url: "/custom_lombao_product/product-history",
+							dataType: 'json',
+							data: {store:store_code,url:prod_url} 
+						}).done(function(response){
+
+							console.log(response);
+							let hist = response.historic.output_price_wiht_date;
+
+							if(hist != null){
+
+								console.log(hist);
+								let final_hist = hist.toReversed();
+								let hist_30 =[];
+								if(hist.length > 30){
+									hist_30 = hist.slice(0,30);
+									final_hist = hist_30;
+								}
+								// console.log("hist 30:");
+								// console.log(final_hist);
+	
+								var labels = [""];
+								var data_values = [null];
+	
+								//fill labels
+								for (let l = 0; l < final_hist.length; l++) {
+									//labels.push(hist[l].date);
+									let objDate = new Date(hist[l].date);
+									let d_v = (objDate.getDate()+"/"+objDate.getMonth()).toString();
+									labels.push(d_v);
+									data_values.push(hist[l].price);
+									
+								}
+	
+								const data = {
+									labels: labels,
+									datasets: [{
+										label:'  Precio',
+										data: data_values,
+										fill: false,
+										pointRadius: 5,
+										borderColor: '#da1a80',
+										//backgroundColor: 'rgb(218 26 128 / 60%)',
+										backgroundColor:"#da1a80",
+										borderWidth:3,
+										hoverRadius:8,
+										tension: 0.4
+									}]
+								};
+							}else{
+								jQuery(".chart-wrapper").html('<h2 class="title">Ocurrió un error al cargar los datos del producto para mostrar el gráfico.</h2>')
+							}
+
+							if(labels.length > 1 && data_values.length > 1){
+
+								new Chart(ctx, {
+									type: "line",
+									data: data,
+									options: {
+				
+									// responsive:true,
+									maintainAspectRatio:false,
+				
+									plugins: {
+										title: {
+										display: true,
+										font: {
+											size: 28,
+											weight: "Bold",
+										},
+										text: "Comportamiento del producto.",
+										padding: {
+											top: 16,
+											bottom: 36,
+										},
+										},
+										legend: {
+										display: false,
+										labels: {
+											usePointStyle: true,
+											font: {
+											size: 20,
+											},
+										},
+										},
+										tooltip: {
+										titleFont: {
+											size: 20,
+											weight: "Normal",
+										},
+										},
+									},
+									scales: {
+										y: {
+										beginAtZero: true,
+										title: {
+											display: true,
+											text: "Precios ( "+base_curr+" )",
+											padding: {
+											bottom: 50,
+											},
+										},
+										grid: {
+											stacked:true,
+											display: true,
+											color: "#81c5e4",
+										},
+										},
+										x: {
+										beginAtZero: false,
+										title: {
+											display: true,
+											text: "Días ( Últimos 30 días ).",
+											padding: {
+											top: 50,
+											},
+										},
+										grid: {
+											display: true,
+											color: "#81c5e4",
+										},
+										},
+									},
+									interaction: {
+										mode: "point",
+									},
+									},
+								});
+				
+								jQuery("span.base_curr").text(base_curr);
+	
+							}else{
+								jQuery(".chart-wrapper").html('<h2 class="title">Ocurrió un error al cargar los datos del producto para mostrar el gráfico.</h2>')
+							}
+
+						});
+
+					}
+			});
+
+			
+		}
+		// jQuery(document).on("click","h2.no-member",function(){
+		// 	jQuery(".price-history section").toggle();
+		// });
+		jQuery(document).on('click','.page-node-type-details-product .product_btn a[href="/create-alert"]',function(e){
+			e.preventDefault();
+			//get the querystring params
+			let urlParams = new URL(window.location.href).searchParams;
+			let pid = urlParams.get("pid");
+			//clean de alert params
+			sessionStorage.removeItem("alert_type");
+			sessionStorage.removeItem("alert_search");
+			sessionStorage.removeItem("alert_price");
+			sessionStorage.removeItem("alert_currency");
+			sessionStorage.removeItem("pid");
+			//set new alert
+			let prod_price = jQuery('.product-detail .price .new_price').text().split(' ');
+			let prod_name = jQuery('.product-detail .product_name').text();
+			sessionStorage.setItem("alert_type","price");
+			sessionStorage.setItem("alert_search",prod_name);
+			sessionStorage.setItem("alert_price",prod_price[1]);
+			sessionStorage.setItem("alert_currency",prod_price[0]);
+			sessionStorage.setItem("pid",pid);
+			//redirect
+			window.location =jQuery(this).attr('href');
+		});
+		jQuery(document).on('click','a.compare',function(e){
+			e.preventDefault();
+			let name = jQuery(this).parent().parent().parent().find(".product_name").text();
+			let price = jQuery(this).parent().parent().parent().find(".price .new_price").text();
+			// let urlParams = new URL(window.location.href).searchParams;
+			// let curr = urlParams.get("cur");
+			addToCompare(jQuery(this).attr("data"),jQuery(this).attr("data-store"),jQuery(this).attr("data-currency"),name);
+		});
+	}
+
+	//publicidad blog list///
+	if(jQuery("body.path-blog").length || jQuery("body.path-frontpage").length){
+		let bParams = window.location.href.split(baseUrl);
+		
+		var logged_in = jQuery("#logged-in").val();
+		var member = jQuery("#is-member").val();
+
+		console.log(bParams);
+		jQuery("#edit-sfp").attr("placeholder","Buscar entrada de blog...");
+		jQuery(".view-blog .views-filter .view-blogcats .vocabulary-categorias a[href='/"+bParams[1]+"']").addClass("active");
+		jQuery(".view-blog .views-filter .view-blogtags .vocabulary-tags a[href='/"+bParams[1]+"']").addClass("active");
+		
+		jQuery("#block-avqs-customblogsearch form #edit-actions").attr("title","Buscar");
+		jQuery(document).on("click","#block-avqs-customblogsearch form #edit-actions",function(){
+			jQuery("#block-avqs-customblogsearch form").submit();
+		});
+		//publicidad en blog/////
+		console.clear();
+		// console.log("miembro en blog: "+member)
+		if(member == 0){
+
+			if(jQuery(".bloglist .pub-cloned-4a").length){
+	
+				jQuery(".bloglist .pub-cloned-4a").html(insertPubBlog("#pub4a > iframe",'5602b8302131403030634bc7ca9d6e95'));
+				jQuery(".bloglist .pub-cloned-4b").html(insertPubBlog("#pub4b > iframe",'5602b8302131403030634bc7ca9d6e95'));
+	
+			}
+			if(jQuery(".bloglist .pub-cloned-8a").length){
+	
+				jQuery(".bloglist .pub-cloned-8a").html(insertPubBlog("#pub8a > iframe",'5602b8302131403030634bc7ca9d6e95'));
+				jQuery(".bloglist .pub-cloned-8b").html(insertPubBlog("#pub8b > iframe",'5602b8302131403030634bc7ca9d6e95'));
+	
+			}
+			if(jQuery(".bloglist .pub-cloned-12a").length){
+	
+				jQuery(".bloglist .pub-cloned-12a").html(insertPubBlog("#pub16a > iframe",'5602b8302131403030634bc7ca9d6e95'));
+				jQuery(".bloglist .pub-cloned-12b").html(insertPubBlog("#pub16b > iframe",'5602b8302131403030634bc7ca9d6e95'));
+	
+			}
+			if(jQuery(".bloglist .pub-cloned-16a").length){
+	
+				jQuery(".bloglist .pub-cloned-16a").html(insertPubBlog("#pub24a > iframe",'5602b8302131403030634bc7ca9d6e95'));
+				jQuery(".bloglist .pub-cloned-16b").html(insertPubBlog("#pub24b > iframe",'5602b8302131403030634bc7ca9d6e95'));
+	
+			}
+		}
+
+		console.log(jQuery("#trend"));
+		// Trend block
+		if(jQuery("#trend").val()!=""){
+			var trend =JSON.parse(jQuery("#trend").val());
+			// console.log(trend);
+			//filter trend para La Habana
+			var trend_hab = [];
+			for (let h = 0; h < trend.length; h++) {
+				if(trend[h].province === "La Habana"){
+					trend_hab.push(trend[h]);
+				}
+			}	
+			// console.log(trend_hab);
+
+			
+			var products_trend ="";
+			for (let i = 0; i < trend_hab.length; i++) {
+				
+				let price = parseFloat(trend_hab[i].min_price).toFixed(2);
+				let even ="";
+				let trend_val = "---";
+				let direction = "estable";
+				let trend_is_zero="";
+
+				if(trend_hab[i].trend && (trend_hab[i].trend < 0 || trend_hab[i].trend > 0)){
+					trend_val = parseFloat(trend_hab[i].trend).toFixed(1)+'%';
+					if(trend_hab[i].trend < 0){direction="down";trend_is_zero="title='Bajó'";}
+					if(trend_hab[i].trend > 0){direction="up";trend_is_zero="title='Subió'";}
+				}else{
+					if(trend_hab[i].trend == 0){trend_is_zero='style="color:#2ad6da !important;" title="Sin cambios"';}
+					else{trend_is_zero='title="Pendiente a calcular"';}
+				}
+				if (i % 2 != 0){
+					even="even";
+				}
+				products_trend+=`
+				<div class="trend-products row m-0 ${even}">
+					<div class="col-5 col-md-4 p-2 header first">${trend_hab[i].name}</br>( 1${trend_hab[i].unit} )</div>
+					<div class="col-3 col-md-4 p-2 header">$${price}</div>
+					<div class="col-3 col-md-4 p-2 header ${direction} last" ${trend_is_zero}><span class="${direction}"></span>${trend_val}</div>
+				</div>
+				`;
+			}
+			jQuery(".trend-wrapper .trend-scroll").append(products_trend);
+			let trend_all=`
+			<div class="d-flex justify-content-center">
+				<a href="/trend" class="view-all" title="Ver todo">Ver todo</a>
+			</div>
+			`;
+			jQuery(".trend-wrapper").append(trend_all);
+
+		}else{
+			jQuery(".trend-wrapper").append('<div class="trend-products row m-0"></h3>No se han actualizado los datos.</h3></div>')
+		}
+
+		if(sessionStorage.getItem('blog-active-cat')){
+			jQuery('div[id*="taxonomy-term-"] > a').removeClass('active');
+			jQuery('#taxonomy-term-'+sessionStorage.getItem('blog-active-cat')+ '> a').addClass('active');
+			jQuery('.view-blogcats > div[class*="blog-cat-"]').removeClass('active');
+			jQuery('.view-blogcats > div.blog-cat-'+sessionStorage.getItem('blog-active-cat')).addClass('active');
+		}else{
+			jQuery('.view-blogcats .fieldcat:first > .taxonomy-term > a').addClass('active');
+			sessionStorage.setItem('blog-active-cat',jQuery('.view-blogcats .fieldcat:first > .taxonomy-term > a').attr('data'));
+		}
+
+		jQuery(document).on('click','div[id*="taxonomy-term-"] > a',function(e){
+			e.preventDefault();
+			jQuery('div[id*="taxonomy-term-"] > a').removeClass('active');
+			jQuery('.view-blogcats > div[class*="blog-cat-"]').removeClass('active');
+			jQuery(this).addClass('active');
+			jQuery('.view-blogcats > div.blog-cat-'+jQuery(this).attr('data')).addClass('active');
+			sessionStorage.setItem('blog-active-cat',jQuery(this).attr('data'));
+		});
+	}
+
+	//publicidad blog node full////
+	if(jQuery("body.page-node-type-blog-post").length){
+		let m_tit = jQuery(".page-node-type-blog-post article .node__content h2 span").text();
+		//let m_desc =jQuery(".page-node-type-blog-post article .node__content h2 span").text();
+		let m_img = baseUrl+jQuery(".page-node-type-blog-post article .node__content img").attr("src");
+		let m_url = window.location.href;
+
+		let metas = `<meta property="og: title" content="${m_tit}" />
+		 <meta property="og: description" content="${m_tit}"/>
+		<meta property="og: image" content="${m_img}"/>
+		<meta property="og:url" content="${m_url}" />`;
+		jQuery("html > head").append(metas);
+
+		if(jQuery(".node--type-blog-post .node__content .field--name-body .block-pub").length){
+			var pub_a = `
+				<div class="col-12 col-md-6 my-5 pub-cloned-a">${insertPubBlog("#pub4a > iframe",'5602b8302131403030634bc7ca9d6e95')}</div>
+			`;
+			var pub_b = `
+				<div class="col-12 col-md-6 my-5 pub-cloned-b">${insertPubBlog("#pub4b > iframe",'5602b8302131403030634bc7ca9d6e95')}</div>
+			`;
+			jQuery(".node--type-blog-post .node__content .field--name-body .block-pub").html(pub_a+pub_b);
+			// jQuery(".node--type-blog-post .node__content .field--name-body .block-pub").append(pub_b);
+
+		}
+	}
+
+	if(jQuery("body.path-search").length){
+		// jQuery(".block-system-main-block").addClass("container text-center");
+		jQuery("#search-form #edit-submit").attr("title","Buscar en el Blog");
+		jQuery("#search-form .form-wrapper").append(`<i class="icon-search"></i>`);
+	}
+
+	if(jQuery("body.page-node-type-page .compare-list").length){
+		if(logged_in == 1){
+			//console.log("user logged in: " + drupalSettings.user.uid);
+			jQuery.ajax({
+				method: "GET",
+				url: "/api/get-all-products",
+				dataType: 'json',
+				// data: { id: pid }
+			}).done(function(response){
+
+				// console.log(response);
+				if( response.response && (response.response.docs != null || response.response.documents != null)){
+					//jQuery("body").append(products);
+					var products ="";
+					var docs = response.response.documents;
+					// console.log("items: "+docs.length);
+					for (let i = 0; i < docs.length; i++) {
+						var precio = "00.00";
+						//si la moneda actual coincide con la moneda por defecto de la tienda muestra el precio
+						if(docs[i][0]._source.display_currency == response.stores[docs[i][0]._source.code].default_currency){
+							precio = docs[i][0]._source.display_currency+" "+ parseFloat(docs[i][0]._source.new_price).toFixed(2);
+						}else{
+							//hay que calcular precio //
+							let p_rate = response.stores[docs[i][0]._source.code].currency_rate[docs[i][0]._source.display_currency];
+							// console.log(""+p_rate);
+							let save_currency_price = (docs[i][0]._source.new_price * p_rate).toFixed(2);
+							
+							// NaN hack
+							if(save_currency_price == "NaN"){
+								save_currency_price = (docs[i][0]._source.new_price).toFixed(2);
+							}
+
+							precio = docs[i][0]._source.display_currency +" "+ save_currency_price;
+						}
+
+						
+						products +=`
+						<div class="col-3 list-product column" data="${docs[i][0]._id}">
+							<div class="cell picture text-center">
+								<div class="p-actions" data="${docs[i][0]._id}"><img src="/themes/avqs-theme/images/icon_delete.svg" width="30" height="30" title="Eliminar este producto"></div>
+								<a href="${docs[i][0]._source.product_url}" title="Ir a la Tienda"><img src="${docs[i][0]._source.product_img_url}" loading="lazy" class="img-fluid w-60 mx-auto"></a>
+							</div>
+							<div class="cell name even">${docs[i][0]._source.product_name}</div>
+							<div class="cell seller">${docs[i][0]._source.product_seller}</div>
+							<div class="cell store even">${response.stores[docs[i][0]._source.code].name}</div>
+							<div class="cell desc">${docs[i][0]._source.product_description}</div>
+							<div class="cell price even">${precio}</div>
+						</div>
+						`;
+					}
+					// console.log(products);
+					jQuery(".list-products").append(products).removeClass("d-none");
+					jQuery(".list-actions").removeClass("d-none").addClass("d-flex");
+				}else{
+					jQuery(".list-products").addClass("d-none");
+					jQuery(".list-actions").removeClass("d-flex").addClass("d-none");
+					jQuery(".list-empty").removeClass("d-none").addClass("d-flex");
+				}
+		
+			});
+			
+			// borrar producto de la lista
+			jQuery(document).on("click",".list-products .list-product .cell .p-actions",function(e){
+				removeFromCompare(jQuery(this).attr("data"));
+			});
+
+		}else{
+			window.history.back();
+		}
+
+		//borrar la lista
+		jQuery(document).on('click','.list-wrapper .list-actions .cleanlist',function(e){
+			e.preventDefault();
+			cleanListCompare();
+		});
+	}
+	jQuery(document).on('click','.compare-wrapper .compare-dialog .close',function(e){
+		e.preventDefault();
+		jQuery(this).parent().parent().remove();
+	});
+	jQuery(document).on('click','.compare-wrapper .compare-dialog .continue',function(e){
+		e.preventDefault();
+		jQuery('.compare-wrapper .compare-dialog .close').trigger("click");
+	});
+
+	//page trend
+	if(jQuery("body.page-node-type-page .page-trend").length){
+
+		// Trend block
+		if(jQuery("#trend").val()!=""){
+			var trend =JSON.parse(jQuery("#trend").val());
+			// console.log(trend);
+
+			//fill province selector && select La Habana by default 
+			var tem_prov = []
+			var prov_selector = "";
+			for (let h = 0; h < trend.length; h++) {
+				//if(trend[h].province === "La Habana"){
+					tem_prov.push(trend[h].province);
+				//}
+			}	
+			// remove duplicates provinces
+			tem_prov = tem_prov.filter((item,index)=>{return tem_prov.indexOf(item) === index;});
+			// contruct de select options
+			for (let p = 0; p < tem_prov.length; p++) {
+				if(tem_prov[p]=="La Habana"){
+					prov_selector+=`<option value="${tem_prov[p]}" selected="selected">${tem_prov[p]}</option>`;
+				}else{
+					prov_selector+=`<option value="${tem_prov[p]}">${tem_prov[p]}</option>`
+				}
+			}
+			//fill selector
+			jQuery("#prov-filter").html(prov_selector);
+	
+			var products_trend="";
+			var products_trend_mobile="";
+			
+
+			for (let i = 0; i < trend.length; i++) {
+				
+				let price = parseFloat(trend[i].average).toFixed(2);
+				let price_max = parseFloat(trend[i].max_price).toFixed(2);
+				let price_min = parseFloat(trend[i].min_price).toFixed(2);
+				let r_even ="";
+				let trend_val = "---";
+				let direction = "estable";
+				
+
+				if(trend[i].trend && (trend[i].trend < 0 || trend[i].trend > 0)){
+					trend_val = parseFloat(trend[i].trend).toFixed(2)+'%';
+					if(trend[i].trend < 0){direction="down"}
+					if(trend[i].trend > 0){direction="up"}
+				}
+				
+				
+				let show = "d-flex";
+
+				if(trend[i].province != jQuery("#prov-filter").val()){
+					show = "d-none";
+				}
+
+				//traza 
+				let proof = "";
+				let proof_mobile = "";
+				let proof_cont = trend[i].proof;
+				let pname = "Nombre del Producto</br>(Unidad de Medida)";
+				if(jQuery(window).width() < 768){
+					pname="Producto (UM)";
+				}
+				proof = `<div class="row m-0 py-2 px-0 p-xl-2  proof-heading">
+							<div class="col-2 d-flex cell">Imagen</div>
+							<div class="col-3 d-flex name cell">${pname}</div>
+							<div class="col-2 d-flex price cell">Precio/Tienda</div>
+							<div class="col-2 d-flex price cell">Precio/Unidad</div>
+							<div class="col-3 d-flex store cell">Tienda</div>
+						</div>`;
+
+				
+
+				for (let p = 0; p < proof_cont.length; p++) {
+					
+					let p_even = "";
+
+					if (p % 2 != 0){
+						p_even = "even";
+					}
+
+					let p_price = "$ "+ parseFloat(proof_cont[p].new_price).toFixed(2);
+					let p_p_unit ="$ "+ parseFloat(proof_cont[p].standarized_price).toFixed(2);
+					let qty = parseFloat(proof_cont[p].new_price).toFixed(2);
+					let p_store = jQuery("#"+proof_cont[p].code).val();
+					let p_img = "/themes/avqs-theme/images/none.png"
+					if(proof_cont[p].product_img_url != "None"){
+						p_img = proof_cont[p].product_img_url;
+					}
+					 proof+=`
+					<div class="row m-0 proof-prod ${p_even}">
+					<div class="col-2 d-flex cell"><img src="${p_img}" class="img-fluid" loading="lazy"></div>
+					<div class="col-3 d-flex name cell">${proof_cont[p].product_name} (${proof_cont[p].base_magnitude})</div>
+					<div class="col-2 d-flex price cell">${p_price}</div>
+					<div class="col-2 d-flex price cell">${p_p_unit}</div>
+					<div class="col-3 d-flex store cell">
+						<span >${p_store}</span>
+						<button surl="${proof_cont[p].product_url}" data="${proof_cont[p].code}" pname="${proof_cont[p].product_name}" cuname="${proof_cont[p].currency}" pprice="${qty}" class="btn secondary visit">Visitar tienda</button>
+					</div>
+					
+					</div>
+					`;
+					proof_mobile+=`
+					<div class="row m-0 proof-prod ${p_even}">
+					<div class="col-6 d-flex cell">Imagen</div>
+					<div class="col-6 d-flex cell"><img src="${p_img}" class="img-fluid" loading="lazy"></div>
+					<div class="col-6 d-flex cell">${pname}</div>
+					<div class="col-6 d-flex cell">${proof_cont[p].product_name} (${proof_cont[p].base_magnitude})</div>
+					<div class="col-6 d-flex cell">Precio/Tienda</div>
+					<div class="col-6 d-flex cell">${p_price}</div>
+					<div class="col-6 d-flex cell">Precio/Unidad</div>
+					<div class="col-6 d-flex cell">${p_p_unit}</div>
+					<div class="col-6 d-flex cell">Tienda</div>
+					<div class="col-6 d-flex store cell">
+						<a href="${proof_cont[p].product_url}"><span>${p_store}</span></a>
+					</div>
+					
+					</div>
+					`;
+				}
+				
+				proof_mobile
+				
+				if (i % 2 != 0){
+					r_even="even";
+				}
+
+				products_trend+=`
+				<div class="trend-products row m-0 ${show}" data-filter="${trend[i].province}">
+					<div class="col-4 col-md-3 p-2 header first">${trend[i].name} ( 1${trend[i].unit} )</div>
+					<div class="col-2 col-md-2 p-2 header">$${price_min}</div>
+					<div class="col-2 col-md-2 p-2 header">$${price_max}</div>
+					<div class="col-2 col-md-2 p-2 header">$${price}</div>
+					<div class="col-2 col-md-3 p-2 header ${direction} last">
+						<span class="${direction}"></span>${trend_val}
+						<div class="trend-actions"><button class="btn secondary">Ver traza</button></div>
+					</div>
+				</div>
+				<div class="trace-wrapper p-3"><div class="container-fluid p-wrapper">${proof}</div></div>
+				`;
+				
+				products_trend_mobile+=`
+					<div class="trend-product-header-mobile row m-0 ${show}"  data-filter="${trend[i].province}">
+						<div class="col-6 px-2 header-name">Producto (UM)</div>
+        				<div class="col-6 px-2 header-data">${trend[i].name} ( 1${trend[i].unit} )</div>
+						<div class="col-6 px-2 header-min">Precio Mínimo</div>
+				        <div class="col-6 px-2 min-data">$${price_min}</div>
+						<div class="col-6 px-2 header-max">Precio Máximo</div>
+        				<div class="col-6 px-2 max-data">$${price_max}</div>
+						<div class="col-6 px-2 header-median">Precio Promedio</div>
+        				<div class="col-6 px-2 median-data">$${price}</div>
+						<div class="col-6 px-2 header-trend">Tendencia</div>
+        				<div class="col-6 px-2 trend-data ${direction}">
+							<span class="${direction}"></span>${trend_val}
+							<button class="btn secondary">Ver traza</button>
+						</div>			
+					</div>
+					<div class="trace-wrapper px-0"><div class="container-fluid p-2 p-wrapper">${proof_mobile}</div></div>
+				`;
+				proof = "";
+			}
+			if(jQuery(window).width() < 768 ){
+				jQuery(".trend-wrapper").append(products_trend_mobile);
+			}else{
+				jQuery(".trend-wrapper").append(products_trend);
+			}
+
+		}else{
+			jQuery(".trend-wrapper").append('<div class="trend-products row m-0"></h3>No se han actualizado los datos.</h3></div>')
+		}
+
+		jQuery(document).on('click','.proof-prod .store .visit',function(e){
+			e.preventDefault();
+			let store= jQuery(this).attr("code");
+			var url = jQuery(this).attr("surl");
+			let product = jQuery(this).attr("pname");
+			let pr = jQuery(this).attr("pprice");
+			let cur = jQuery(this).attr("cuname");
+			let fcur="";
+
+			if(jQuery.isArray(cur)){
+				fcur = cur.findIndex((c) => c === "USD");
+			}else{
+				fcur = cur;
+			}
+
+			let baseParams ={
+				store:store,
+				surl:url,
+				product:product,
+				price:pr,
+				currency:fcur,
+			};
+			
+			 ///api/save-product-detail
+			jQuery.ajax({
+				method: "POST",
+				url: "/api/save-product-detail",
+				dataType: 'json',
+				data: baseParams 
+			}).done(function(response3){
+				// console.log(response3);
+				if(response3){
+					window.open(url);
+				}
+			});
+		});
+
+
+		jQuery(document).on("change","#prov-filter",function(){
+			var selected_prov = jQuery(this).val();
+			
+			if(jQuery(window).width() < 768){
+
+				jQuery(".trend-wrapper .trend-product-header-mobile").each(function(){
+	
+					if(jQuery(this).hasClass("d-flex")){
+						jQuery(this).removeClass("d-flex").addClass("d-none");
+					}
+	
+					if(jQuery(this).attr("data-filter") == selected_prov){
+						jQuery(this).removeClass("d-none").addClass("d-flex");
+					}
+				});
+
+			}else{
+
+				jQuery(".trend-wrapper .trend-products").each(function(){
+	
+					if(jQuery(this).hasClass("d-flex")){
+						jQuery(this).removeClass("d-flex").addClass("d-none");
+					}
+	
+					if(jQuery(this).attr("data-filter") == selected_prov){
+						jQuery(this).removeClass("d-none").addClass("d-flex");
+					}
+				});
+
+			}
+		});
+
+		jQuery(document).on("click",".trend-products .trend-actions > button",function(){
+			// jQuery('.trend-wrapper .trace-wrapper').slideUp();
+			jQuery(".trend-products .trend-actions > button").blur();
+
+			jQuery(this).parent().parent().parent().next('.trace-wrapper').slideToggle();
+		});
+		jQuery(document).on("click",".trend-product-header-mobile .trend-data > button",function(){
+			// jQuery('.trend-wrapper .trace-wrapper').slideUp();
+			jQuery(".trend-product-header-mobile .trend-data > button").blur();
+
+			jQuery(this).parent().parent().next('.trace-wrapper').slideToggle();
+		});
+	}
+	//jQuery(".adsbygoogle").each(function () { (adsbygoogle = window.adsbygoogle || []).push({client_id:8829325632409489}); });
+	
+	//informacion de autor//
+
+	if(jQuery("body.page-node-type-page .page-author-info").length){
+		let urlParams = new URL(window.location.href).searchParams;
+		// console.log(urlParams.get('a'));
+		// jQuery(".page-autor-content .autor-article-list").addClass('d-none');
+		 ///api/save-product-detail
+		 jQuery.ajax({
+			method: "GET",
+			url: "/commerce_lombao_search/get-publicist",
+			dataType: 'json',
+			data: {id:urlParams.get("a")},
+		}).done(function(response){
+			// console.log(response[0]);
+			if(response[0]){
+				let name = response[0].name+" "+ response[0].surnames;
+				let desc='No se ha actualizado la información.';
+				if(response[0].description !=null){
+					desc=response[0].description;
+				}
+				jQuery(".page-autor-content .autor-data .autor-name").html(name);
+				jQuery(".page-autor-content .autor-data .autor-description").html(desc);
+				jQuery(".page-autor-content .autor-data").removeClass('d-none');
+				jQuery(".page-autor-content .autor-article-list").removeClass('d-none');
+				jQuery(".page-author-info .load-wrapper").hide();
+			}else{
+				window.location.href="/blog";
+			}
+		});
+	}
+
+	// if(jQuery('body.page-extension').length > 0){
+	// 	jQuery("#slider_ext").carousel();
+	// }
+});
+
+document.querySelectorAll('.sidebar li').forEach(item => {
+    item.addEventListener('click', function() {
+        // Ocultar todos los bloques
+        document.querySelectorAll('.bloque').forEach(bloque => {
+            // bloque.classList.remove('active');
+			bloque.style.display = "none";
+        });
+
+        // Mostrar el bloque correspondiente
+        const bloqueId = this.getAttribute('value');
+        // document.getElementById(bloqueId).classList.add('active');
+		var bloq = document.getElementById(bloqueId);
+		bloq.style.display = "";
+    });
+});
+
+jQuery(document).on("click",'#search-product-button',function(){
+	var txt = jQuery("#text-analitic").val();
+	jQuery(".wrapper-load").append(loadingbox);
+	jQuery.ajax({
+		method: "GET",
+		url: "/custom_lombao_product/get_product_price",
+		dataType: 'json',
+		data: {text: txt}
+	}).done(function(response){
+		
+		//console.log(response);
+
+		let product="";
+		if(response !=null && response.length > 0){
+			
+			//building results grid
+			for( i=0; i < response.length; i++){
+
+				if (response[i].province == "La Habana") {
+					var min = (response[i].min_price).toFixed(2);
+					var mid = (response[i].average).toFixed(2);
+					var max = (response[i].max_price).toFixed(2);	
+					jQuery("#price-min").text("$" + min);
+					jQuery("#price-mid").text("$" + mid);
+					jQuery("#price-max").text("$" + max);
+					jQuery("#product-name").text(response[i].name + " " + response[i].unit);
+					if (response[i].proof.length > 0) {
+						for( j=0; j < response[i].proof.length; j++){
+							var prod = response[i].proof[j];
+	
+							var price,rounded_price,rounded_old_price,dc;
+							var product_btn,buttons ="";
+							var current_curr="";
+							
+							// let baseCurr = response.stores[response.docs[i]._source.code].default_currency;			 
+							
+							buttons=`<a href="/create-alert"><i class="icon-notification" title="Crear alerta"></i></a>
+										<a href="<no-link>" class="compare" data="${prod.product_url}" data-store="${prod.code}" data-currency="${current_curr}" title="Comparar"><i class="icon-compare"></i></a>`;
+							
+							// buttons +=`
+							// 		<a href="/product?pid=${prod.product_url}&cur=${urlParams.get("cur")}&base=${baseCurr}#history" title="Historial de precios"><i class="icon-price-history"></i></a>
+							// 		`;
+	
+							product_btn=`
+							<div class="product_btn d-flex justify-content-evenly">
+							${buttons}
+							</div>
+							`;
+	
+							var prodImg="/themes/avqs-theme/images/none.png"
+							if(prod.product_img_url != "None"){
+								prodImg = prod.product_img_url;
+							}
+	
+							rounded_price = (prod.new_price).toFixed(2);
+							rounded_old_price = (prod.old_price).toFixed(2);
+							current_curr = "USD";
+							price =`
+								<div class="price">
+									<div class="new_price">${current_curr} ${rounded_price}</div>
+								</div>
+								`;
+	
+							product += `
+							
+							<div class="col-12 col-md-6 col-lg-6 col-xl-6 order-1 card-shadow">
+								<div class="product_img_url"><a href="/product?pid="><img src="${prodImg}"></a></div>
+								<div class="product_name"><h4><a href="/product?pid=">${prod.product_name}</a></h4></div>
+								${product_btn}
+								${price}
+								<div class="product_bottom">
+									<div class="product_seller" data-code="${prod.product_seller}">${prod.product_seller}</div>
+									<div class="product_url"><a class="btn primary" href="${prod.product_url}" target="_blank">Visitar Tienda</a></div>
+								</div>
+							</div>`;
+					
+						}
+					}	
+				}
+				
+				/////////////////////////////////////////////////////////////
+			}
+			jQuery(".load-wrapper").remove();
+			jQuery(".product-wrapper-price").append(product);
+			jQuery(".product-price-result").show();
+			
+		}else{
+
+			// content=false;
+			// jQuery("#loadingb").remove();
+			// jQuery("section.infiniteblock").append(finish);
+			// jQuery("#finish").fadeOut(3000);
+			// no_elements = true;
+			// pag = 0;
+			// // pg = 1
+
+		}
+
+	});
+	
+});
+
+jQuery(document).on("click",'#search-prod-analitic-btn',function(){
+	var txt = jQuery("#analitic-product").val();
+	
+	// countVisitLastMonth();
+	// countVisit();
+	// visitsByGender();
+	// visitsByAge();
+	countriesMostVisits(txt);
+	jQuery(".load-wrapper").remove();
+	jQuery(".card-analitic").show();
+});
+
+function countVisitLastMonth() {
+
+	jQuery.ajax({
+		method: "GET",
+		url: "/custom_lombao_product/get_product_price",
+		dataType: 'json',
+		data: {text: txt}
+	}).done(function(response){
+		// Obtener una referencia al elemento canvas del DOM
+		const $graph_1 = document.getElementById("graph-1");
+		// Las etiquetas son las que van en el eje X. 
+		const label_table = ["14", "15", "16", "17", "18", "19", "20", "21"];
+		// Podemos tener varios conjuntos de datos. Comencemos con uno
+		const response_data = {
+			label: "Cantidad de busquedas que tiene el producto",
+			data: [50, 15, 80, 51, 45, 65, 13, 55], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+			backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+			borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+			borderWidth: 1,// Ancho del borde
+			tension: 0.4, // Curvatura de la línea
+		};
+		new Chart($graph_1, {
+			type: 'line',// Tipo de gráfica
+			data: {
+				labels: label_table,
+				datasets: [
+					response_data,
+					// Aquí más datos...
+				]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}],
+				},
+			}
+		});
+	});
+};
+
+function countVisit(txt) {
+
+	jQuery.ajax({
+		method: "GET",
+		url: "/custom_lombao_product/number-search-product",
+		dataType: 'json',
+		data: {text: txt}
+	}).done(function(response){
+		// Obtener una referencia al elemento canvas del DOM
+		const $graph_2 = document.getElementById("graph-2");
+		// Las etiquetas son las que van en el eje X. 
+		const label_table = ["14", "15", "16", "17", "18", "19", "20", "21"];
+		// Podemos tener varios conjuntos de datos. Comencemos con uno
+		const response_data = {
+			label: "Cantidad de busquedas que tiene el producto",
+			data: [50, 15, 80, 51, 45, 65, 13, 55], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+			backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+			borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+			borderWidth: 1,// Ancho del borde
+			tension: 0.4, // Curvatura de la línea
+		};
+		new Chart($graph_2, {
+			type: 'line',// Tipo de gráfica
+			data: {
+				labels: label_table,
+				datasets: [
+					response_data,
+					// Aquí más datos...
+				]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}],
+				},
+			}
+		});
+	});
+};
+
+function visitsByGender(txt) {
+	
+	jQuery.ajax({
+		method: "GET",
+		url: "/custom_lombao_product/get_product_price",
+		dataType: 'json',
+		data: {text: txt}
+	}).done(function(response){
+		var ctx = document.getElementById('graph-3').getContext('2d');
+
+		// Datos para el gráfico de barras
+		var data = {
+			labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+			datasets: [{
+				label: 'Ventas',
+				data: [12, 19, 3, 5, 2],
+				backgroundColor: 'rgba(75, 192, 192, 0.6)',
+				borderColor: 'rgba(75, 192, 192, 1)',
+				borderWidth: 1
+			}]
+		};
+
+		// Opciones del gráfico
+		var options = {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		};
+
+		// Crear el gráfico de barras
+		var barChart = new Chart(ctx, {
+			type: 'bar',
+			data: data,
+			options: options
+		});
+	});
+};
+
+function visitsByAge(txt) {
+	
+	jQuery.ajax({
+		method: "GET",
+		url: "/custom_lombao_product/get_product_price",
+		dataType: 'json',
+		data: {text: txt}
+	}).done(function(response){
+		var ctx = document.getElementById('graph-4').getContext('2d');
+
+		// Datos para el gráfico de barras
+		var data = {
+			labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+			datasets: [{
+				label: 'Ventas',
+				data: [12, 19, 3, 5, 2],
+				backgroundColor: 'rgba(75, 192, 192, 0.6)',
+				borderColor: 'rgba(75, 192, 192, 1)',
+				borderWidth: 1
+			}]
+		};
+
+		// Opciones del gráfico
+		var options = {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		};
+
+		// Crear el gráfico de barras
+		var barChart = new Chart(ctx, {
+			type: 'bar',
+			data: data,
+			options: options
+		});
+	});
+};
+
+function countriesMostVisits(txt) {
+	
+	jQuery.ajax({
+		method: "GET",
+		url: "/custom_lombao_product/products-visit-countries",
+		dataType: 'json',
+		data: {name: txt}
+	}).done(function(response){
+
+		const labels_list = [];
+		const data_list = [];
+
+		for (let index = 0; index < response.length; index++) {
+			labels_list.push(response[index][0]);
+			data_list.push(response[index][1]);
+		}
+		var ctx = document.getElementById('graph-5').getContext('2d');
+
+		// Datos para el gráfico de barras
+		var data = {
+			labels: labels_list,
+			datasets: [{
+				label: 'Ventas',
+				data: data_list,
+				backgroundColor: 'rgba(75, 192, 192, 0.6)',
+				borderColor: 'rgba(75, 192, 192, 1)',
+				borderWidth: 1
+			}]
+		};
+
+		// Opciones del gráfico
+		var options = {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		};
+
+		// Crear el gráfico de barras
+		var barChart = new Chart(ctx, {
+			type: 'bar',
+			data: data,
+			options: options
+		});
+	});
+};
+
+function productsMostVisit() {
+
+	jQuery.ajax({
+		method: "GET",
+		url: "/custom_lombao_product/products-most-visited",
+		dataType: 'json',
+		// data: {text: txt}
+	}).done(function(response){
+		let table = `<table id="dynamicTable" class="table">`;
+    
+		// Create table header
+		table += '<thead><tr><th>Nombre del producto</th><th>Cantidad de clics</th><th>% que representa del total</th></tr></thead>';
+		
+		// Create table body
+		table += '<tbody>';
+		response.forEach(row => {
+			table += '<tr>';
+			Object.values(row).forEach(cell => {
+				table += `<td>${cell}</td>`;
+			});
+			table += '</tr>';
+		});
+		table += '</tbody></table>';
+
+		jQuery('#target-container').html(table);
+	});
+};
+
+

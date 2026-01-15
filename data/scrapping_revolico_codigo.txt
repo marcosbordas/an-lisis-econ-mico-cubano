@@ -1,0 +1,161 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
+import json
+import time
+import re
+import os
+
+BASE_URL = "https://www.revolico.com/search?q="
+
+PALABRAS_CLAVE = [
+    "avena",
+    "arroz 1kg",
+    "leche en polvo",
+    "leche 1lt",
+    "paquete de pollo",
+    "jabón",
+    "pasta dental",
+    "vitamina C",
+    "huevos",
+    "gelatina",
+    "cereal",
+    "papel higiénico",
+    "medicamento para hipertensión",
+    "bastón",
+    "lisinopril",
+    "culeros adultos"
+]
+
+USD_TO_CUP = 410
+MLC_TO_CUP = 400
+
+def extraer_precio(texto):
+    if not texto:
+        return None
+    t = texto.lower()
+    match = re.search(r"(\d+\.?\d*)\s?(cup|usd|mlc)", t)
+    if match:
+        valor = float(match.group(1).replace(".", "").replace(",", ""))
+        moneda = match.group(2).upper()
+        return f"{valor} {moneda}"
+    return None
+
+def convertir_a_cup(precio_texto):
+    if not precio_texto:
+        return None
+    t = precio_texto.lower()
+    nums = re.findall(r"\d+\.?\d*", t)
+    if not nums:
+        return precio_texto
+    valor = float(nums[0])
+    if "usd" in t:
+        return f"{valor * USD_TO_CUP:.0f} CUP (≈ {valor} USD)"
+    if "mlc" in t:
+        return f"{valor * MLC_TO_CUP:.0f} CUP (≈ {valor} MLC)"
+    if "cup" in t or "peso" in t:
+        return precio_texto
+    return precio_texto
+
+def contiene_presentacion(titulo, descripcion, palabra):
+    texto = (titulo or "").lower()
+    desc = (descripcion or "").lower()
+    ambos = texto + " " + desc
+
+    if palabra == "paquete de pollo":
+        return "pollo" in ambos and re.search(r"(10\s?lb|10\s?lbs|10\s?libras|4\.5\s?kg|4\.54\s?kg)", ambos)
+
+    if palabra == "avena":
+        return "avena" in ambos or "hojuelas" in ambos or re.search(r"(400\s?g|500\s?g|1\s?kg|1\s?kgr|1000\s?g)", ambos)
+
+    if palabra == "leche en polvo":
+        return "leche" in ambos and "polvo" in ambos and re.search(r"(1\s?kg|1\s?kgr|1000\s?g)", ambos)
+
+    if palabra == "cereal":
+        return ("cereal" in ambos or "corn flakes" in ambos or
+                ("hojuelas" in ambos and "maiz" in ambos) or
+                "aritos" in ambos or "muesli" in ambos)
+
+    if palabra == "culeros adultos":
+        return "culeros" in ambos and "adultos" in ambos
+
+    if palabra == "arroz 1kg":
+
+        return "arroz" in ambos and ("1kg" in ambos or "1 kg" in ambos or "1kgr" in ambos)
+
+    return palabra.lower() in ambos
+
+def scrape_palabra(driver, palabra):
+    url = f"{BASE_URL}{palabra.replace(' ', '+')}"
+    print(f"\n Buscando {palabra} en {url}")
+    driver.get(url)
+    time.sleep(5)
+
+    # Scroll extendido para cargar más resultados
+    for _ in range(10):
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(3)
+
+    html = driver.page_source
+    soup = BeautifulSoup(html, "html.parser")
+
+    titulos = [a.get_text(strip=True) for a in soup.select("a[href*='/item/']")]
+    precios = [p.get_text(strip=True) for p in soup.select("p[data-cy='adPrice']")]
+    ubicaciones = [u.get_text(strip=True) for u in soup.select("p[data-cy='adLocation']")]
+    descripciones = [d.get_text(strip=True) for d in soup.select("p[data-cy='adDescription']")]
+    enlaces = [a["href"] for a in soup.find_all("a", href=True) if "/item/" in a["href"]]
+
+    print(f" Encontrados {len(titulos)} anuncios para {palabra}")
+
+    resultados = []
+
+    for i in range(len(titulos)):
+        titulo_texto = titulos[i]
+        descripcion = descripciones[i] if i < len(descripciones) else ""
+        if not contiene_presentacion(titulo_texto, descripcion, palabra):
+            continue
+
+        precio_raw = precios[i] if i < len(precios) else None
+        if not precio_raw:
+            precio_raw = extraer_precio(titulo_texto) or extraer_precio(descripcion)
+
+        precio_cup = convertir_a_cup(precio_raw)
+        if not precio_cup:
+            continue
+
+        ubicacion = ubicaciones[i] if i < len(ubicaciones) else None
+        enlace = "https://www.revolico.com" + enlaces[i] if i < len(enlaces) else None
+
+        resultados.append({
+            "titulo": titulo_texto,
+            "descripcion": descripcion,
+            "precio_original": precio_raw,
+            "precio_cup": precio_cup,
+            "url": enlace
+        })
+        print(f" {titulo_texto} | {precio_cup} | {ubicacion}")
+
+    return resultados
+
+def main():
+    options = Options()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
+    todos = {}
+    for palabra in PALABRAS_CLAVE:
+        resultados = scrape_palabra(driver, palabra)
+        todos[palabra] = resultados
+
+    driver.quit()
+
+    ruta = os.path.join(os.getcwd(), "productos_revolico.json")
+    with open(ruta, "w", encoding="utf-8") as f:
+        json.dump(todos, f, ensure_ascii=False, indent=2)
+
+    print(f"\n Archivo creado en: {ruta}")
+    print(f" Guardados anuncios de {len(PALABRAS_CLAVE)} productos en productos_revolico.json")
+
+if __name__ == "__main__":
+    main()

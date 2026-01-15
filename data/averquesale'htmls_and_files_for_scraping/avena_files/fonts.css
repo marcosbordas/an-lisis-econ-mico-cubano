@@ -1,0 +1,108 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?eswe1z');
+  src:  url('../fonts/icomoon.eot?eswe1z#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?eswe1z') format('truetype'),
+    url('../fonts/icomoon.woff?eswe1z') format('woff'),
+    url('../fonts/icomoon.svg?eswe1z#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  /* speak: never; */
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-alert:before {
+  content: "\e900";
+  color: #245772;
+}
+.icon-arrow:before {
+  content: "\e901";
+  color: #245772;
+}
+.icon-close:before {
+  content: "\e902";
+  color: #245772;
+}
+.icon-compare:before {
+  content: "\e903";
+  color: #245772;
+}
+.icon-configuration:before {
+  content: "\e904";
+  color: #245772;
+}
+.icon-confirmation:before {
+  content: "\e905";
+  color: #245772;
+}
+.icon-edit:before {
+  content: "\e906";
+  color: #245772;
+}
+.icon-facebook:before {
+  content: "\e907";
+  color: #245772;
+}
+.icon-filter:before {
+  content: "\e908";
+  color: #245772;
+}
+.icon-gmail:before {
+  content: "\e909";
+  color: #245772;
+}
+.icon-instagram:before {
+  content: "\e90a";
+  color: #245772;
+}
+.icon-menu:before {
+  content: "\e90b";
+  color: #245772;
+}
+.icon-notification:before {
+  content: "\e90c";
+  color: #245772;
+}
+.icon-price-history:before {
+  content: "\e90d";
+  color: #245772;
+}
+.icon-search-assistant .path1:before {
+  content: "\e90e";
+  color: rgb(37, 87, 114);
+}
+
+.icon-search:before {
+  content: "\e913";
+  color: #245772;
+}
+.icon-share:before {
+  content: "\e914";
+  color: #245772;
+}
+.icon-telegram:before {
+  content: "\e915";
+  color: #245772;
+}
+.icon-user:before {
+  content: "\e916";
+  color: #245772;
+}
+.icon-whatsapp:before {
+  content: "\e917";
+  color: #245772;
+}
