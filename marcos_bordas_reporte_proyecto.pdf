@@ -1,0 +1,44 @@
+La Realidad Cuantificada: Un análisis de la viabilidad económica para pensionados en Cuba
+Un estudio cuantitativo sobre el costo real de envejecer en Cuba
+
+Autor: Marcos Bordas González
+Carrera: Ciencia de Datos - Primer Año
+Institución: Universidad de La Habana
+Facultad: Matemática y Computación (MATCOM)
+
+Este trabajo se realizó con el objetivo de evaluar si la pensión mínima en Cuba alcanza para cubrir las necesidades básicas de un adulto mayor.
+La idea fue cuantificar precios reales en distintos canales de comercialización y compararlos con el ingreso mensual disponible, para tener una visión clara de la brecha económica existente.
+
+Metodología
+
+-Selección de productos esenciales:
+
+Se definió una lista de 15 artículos básicos para la vida diaria de un adulto mayor (alimentos, higiene y medicamentos).
+
+-Recorrido físico por MIPYMES:
+
+Se visitaron 30 establecimientos privados en La Habana.
+
+Se registró la disponibilidad y el precio de cada producto.
+
+-Monitoreo digital:
+
+Se recopilaron precios y ofertas de los mismos productos en dos plataformas digitales:
+
+Revolico (mercado informal en línea).
+
+A ver qué sale (sitio web de anuncios).
+
+-Registro y procesamiento de datos:
+
+Los datos se almacenaron en un archivo JSON para su análisis.
+
+Se calcularon promedios de precios por producto y se compararon entre fuentes.
+
+
+
+El estudio confirma la existencia de una brecha significativa entre la pensión mínima y el costo real de vida de los adultos mayores en Cuba.
+La evidencia cuantitativa demuestra que los ingresos actuales no garantizan cubrir necesidades básicas, lo que genera vulnerabilidad económica y social.
+
+
+
