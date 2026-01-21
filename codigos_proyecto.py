@@ -281,7 +281,7 @@ def grafico_barras_revolico():
         nombres.append(producto)
         porcentajes.append(porcentaje_pension)
 
-    # Paleta de colores distinta para cada producto
+
     colores = plt.cm.tab20.colors[:len(nombres)]
 
     fig, ax = plt.subplots(figsize=(10,6))
@@ -313,7 +313,7 @@ def grafico_accesibilidad():
     pension_minima = 3056
     filas = []
 
-    # construir filas con producto, precio promedio y unidades
+
     for producto, anuncios in revolico_datos.items():
         precios = []
         for a in anuncios:
@@ -326,7 +326,7 @@ def grafico_accesibilidad():
             unidades = pension_minima / promedio
             filas.append([producto, round(promedio, 2), round(unidades, 2)])
 
-    # datos para el gráfico
+
     productos = [fila[0] for fila in filas]
     unidades = [fila[2] for fila in filas]
 
@@ -435,11 +435,11 @@ def tabla_cesta_basica_mensual():
 def grafico_cesta_basica_mensual():
     pension = 3056
 
-    # Precios promedio ajustados según cantidades mínimas
-    arroz = 736.93 * 3       # 3 paquetes (~7 lb)
-    pollo = 4110.47 * 1      # 1 paquete (nota: puede variar según consumo)
-    leche_caja = 2017.20 * 3 # 3 cajas de 1lt
-    jabon = 109.25 * 2       # 2 unidades
+
+    arroz = 736.93 * 3
+    pollo = 4110.47 * 1
+    leche_caja = 2017.20 * 3
+    jabon = 109.25 * 2
     pasta_dental = 625.70 * 1
     papel_higienico = 611.08 * 1
 
@@ -452,10 +452,9 @@ def grafico_cesta_basica_mensual():
         "Papel higiénico": papel_higienico
     }
 
-    # Calcular costo total
+
     costo_total = sum(productos.values())
 
-    # Crear gráfico circular (pie clásico)
     fig, ax = plt.subplots(figsize=(8,8))
     ax.pie(
         productos.values(),
