@@ -56,14 +56,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -121,14 +113,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -190,14 +174,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -255,14 +231,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -324,14 +292,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -389,14 +349,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -458,14 +410,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -523,14 +467,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -592,14 +528,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -657,14 +585,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -726,14 +646,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -791,14 +703,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -860,14 +764,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -925,14 +821,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -994,14 +882,6 @@
                 "13": {
                     "disponible": true,
                     "precio": 4460
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -1059,14 +939,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -1128,14 +1000,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -1193,14 +1057,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -1262,14 +1118,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -1327,14 +1175,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -1396,14 +1236,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -1461,14 +1293,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -1530,14 +1354,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -1595,14 +1411,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -1664,14 +1472,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -1729,14 +1529,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -1798,14 +1590,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -1863,14 +1647,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }
@@ -1932,14 +1708,6 @@
                 "13": {
                     "disponible": false,
                     "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
-                    "disponible": false,
-                    "precio": 0
                 }
             }
         },
@@ -1997,14 +1765,6 @@
                     "precio": 0
                 },
                 "13": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "14": {
-                    "disponible": false,
-                    "precio": 0
-                },
-                "15": {
                     "disponible": false,
                     "precio": 0
                 }

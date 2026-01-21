@@ -36,23 +36,29 @@ def calcular_porcentaje(parte, total):
         return 0
     return(parte/total)*100
 
+
 def analizar_disponibilidad(lista_productos, fuentes_de_datos):
     resultados = {}
     for producto in lista_productos:
         producto_id = producto["id"]
         contador = 0
         for fuente in fuentes_de_datos:
-            if fuente["productos"][str(producto_id)]["disponible"]:
-                contador += 1
+            if str(producto_id) in fuente["productos"]:
+                if fuente["productos"][str(producto_id)]["disponible"]:
+                    contador += 1
         total_fuentes = len(fuentes_de_datos)
-
-
+        porcentaje = (contador / total_fuentes) * 100 if total_fuentes > 0 else 0
         resultados[producto_id] = {
             "nombre": producto["nombre"],
-            "disponibles":contador,
+            "disponibles": contador,
             "total": total_fuentes,
-            "porcentaje":calcular_porcentaje(contador, len(fuentes_de_datos))}
+            "porcentaje": porcentaje
+        }
     return resultados
+
+
+
+
 
 def productos_no_disponibles(resultados_disponibilidad):
     productos_no = []
@@ -106,12 +112,19 @@ def mostrar_productos_esenciales():
 
 
 
+
+
+
+
 #tabla de disponibilidad en mypimes
 def tabla_mipymes():
     print("DISPONIBILIDAD EN MIPYMES")
     print("="*80)
 
-    resultados_mipymes = analizar_disponibilidad(productos, datos_mipymes["mipymes"])
+
+    productos_mipymes = [p for p in productos if str(p["id"]) in datos_mipymes["mipymes"][0]["productos"]]
+
+    resultados_mipymes = analizar_disponibilidad(productos_mipymes, datos_mipymes["mipymes"])
 
     print(f"\n {'PRODUCTO':44} {'DISPONIBLE EN':20} {'PORCENTAJE'}")
     print("-"*80)
@@ -121,71 +134,103 @@ def tabla_mipymes():
         nombre = datos["nombre"][:44]
         disponible = f"{datos['disponibles']}/{datos['total']} MIPYMES"
         porcentaje = f"{datos['porcentaje']:.1f}%"
-
         print(f"{nombre:45} {disponible:20} {porcentaje}")
 
     print("-"*80)
     faltantes = productos_no_disponibles(resultados_mipymes)
-    total_mipymes = len(datos_mipymes)
-
-    print(f"PRODUCTOS DISPONIBLES: {len(productos) - len(faltantes)} / {len(productos)}")
+    print(f"PRODUCTOS DISPONIBLES: {len(productos_mipymes) - len(faltantes)} / {len(productos_mipymes)}")
     print(f"PRODUCTOS NO DISPONIBLES: {len(faltantes)}")
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 #Gráfico que muestra los productos que tienen disponibilidad alta, media y crítica
-from matplotlib.patches import Patch
 
-def grafico_mipymes(resultados_mipymes, datos_mipymes):
 
-    plt.close("all")
+def grafico_anillo_mipymes():
+    productos_mipymes = [p for p in productos if str(p["id"]) in datos_mipymes["mipymes"][0]["productos"]]
+    resultados_mipymes = analizar_disponibilidad(productos_mipymes, datos_mipymes["mipymes"])
+
+
+    grandes = []
+    medianos = []
+    pequeños = []
+    otros_valor = 0
+    otros_nombres = []
+
+    for producto_id, datos in resultados_mipymes.items():
+        nombre = datos["nombre"]
+        porcentaje = datos["porcentaje"]
+        if porcentaje < 5:
+            otros_valor += porcentaje
+            otros_nombres.append(nombre)
+        elif nombre.lower().startswith("leche en polvo"):
+            medianos.insert(len(medianos)//2, (nombre, porcentaje))
+        elif porcentaje >= 10:
+            grandes.append((nombre, porcentaje))
+        else:
+            medianos.append((nombre, porcentaje))
+
+    if otros_valor > 0:
+        pequeños.append(("Otros", otros_valor))
+
+
     nombres = []
-    porcentajes = []
-    colores = []
+    valores = []
+    for g, m in zip(grandes, medianos):
+        nombres.append(g[0]); valores.append(g[1])
+        nombres.append(m[0]); valores.append(m[1])
+    for g in grandes[len(medianos):]:
+        nombres.append(g[0]); valores.append(g[1])
+    for m in medianos[len(grandes):]:
+        nombres.append(m[0]); valores.append(m[1])
+    for p in pequeños:
+        nombres.append(p[0]); valores.append(p[1])
 
-    # recorrer resultados de disponibilidad
-    for producto_id in sorted(resultados_mipymes.keys()):
-        datos = resultados_mipymes[producto_id]
-        nombres.append(datos["nombre"])
-        porcentajes.append(datos["porcentaje"])
 
-        if datos["porcentaje"] == 0:
-            colores.append("red")
-        elif datos["porcentaje"] < 50:
-            colores.append("gold")
-        else:
-            colores.append("darkgreen")
+    print("\nLos productos con disponibilidad menor al 5% han sido agrupados como 'Otros'.")
+    if otros_nombres:
+        print("Productos agrupados en 'Otros':")
+        for nombre in otros_nombres:
+            print(f" - {nombre}")
 
-    # crear figura
-    fig = plt.figure(figsize=(12, 8))
-    bars = plt.barh(nombres, porcentajes, color=colores)
+    colores = plt.cm.tab20.colors[:len(nombres)]
 
-    # etiquetas de porcentaje al lado de cada barra
-    for bar, pct in zip(bars, porcentajes):
-        if pct == 0:
-            plt.text(1, bar.get_y() + bar.get_height()/2,
-                     "0%", va="center", color="red", fontweight="bold")
-        else:
-            plt.text(bar.get_width() + 1, bar.get_y() + bar.get_height()/2,
-                     f"{pct:.1f}%", va="center", fontweight="bold")
+    fig, ax = plt.subplots(figsize=(9,9))
+    wedges, texts, autotexts = ax.pie(
+        valores,
+        labels=nombres,
+        autopct="%1.1f%%",
+        startangle=135,
+        colors=colores,
+        wedgeprops=dict(width=0.3, edgecolor='white'),
+        pctdistance=0.65,
+        labeldistance=1.05
+    )
 
-    # título y ejes
-    plt.title(f"DISPONIBILIDAD DE PRODUCTOS EN {len(datos_mipymes['mipymes'])} MIPYMES",
-              fontsize=16, fontweight="bold", pad=20)
-    plt.xlabel("PORCENTAJE DE MIPYMES QUE TIENEN EL PRODUCTO (%)", fontsize=12)
-    plt.xlim(0, 105)
-
-    # leyenda
-    leyenda = [
-        Patch(color="darkgreen", label="Alta disponibilidad (>=50%)"),
-        Patch(color="gold", label="Baja disponibilidad (<50%)"),
-        Patch(color="red", label="No disponibles (0%)")
-    ]
-    plt.legend(handles=leyenda, loc="lower right")
-
+    plt.text(0, 0, "Total: 13 productos", ha="center", va="center", fontsize=12, weight="bold")
+    plt.title("Disponibilidad en MIPYMES", fontsize=14)
     plt.tight_layout()
     plt.show()
+
+
+
+
+
+
+
+
 
 
 
@@ -221,49 +266,39 @@ def tabla_revolico():
 
 
 
-
-
 #gráfico que muestra el porcentaje de la pensión mínima de 3056 CUP que representa cada producto
 
 
-def grafico_revolico():
+def grafico_barras_revolico():
+    pension_minima = 3056
+    nombres = []
+    porcentajes = []
 
-    pension_minima = 3056  # CUP
-    filas = []
+    for producto, ofertas in revolico_datos.items():
+        precios = [float(oferta["precio_cup"].split()[0]) for oferta in ofertas]
+        promedio = sum(precios) / len(precios)
+        porcentaje_pension = (promedio / pension_minima) * 100
+        nombres.append(producto)
+        porcentajes.append(porcentaje_pension)
 
-    # construir filas directamente aquí
-    for producto, anuncios in revolico_datos.items():
-        precios = []
-        for a in anuncios:
-            if a.get("precio_cup"):
-                nums = [float(x) for x in a["precio_cup"].split() if x.replace(".", "").isdigit()]
-                if nums:
-                    precios.append(nums[0])
+    # Paleta de colores distinta para cada producto
+    colores = plt.cm.tab20.colors[:len(nombres)]
 
-        if precios:
-            promedio = calcular_promedio(precios)
-            unidades = pension_minima / promedio
-            porcentaje = calcular_porcentaje(promedio, pension_minima)
-            filas.append([producto, round(promedio, 2), round(unidades, 2), round(porcentaje, 2)])
+    fig, ax = plt.subplots(figsize=(10,6))
+    barras = ax.bar(nombres, porcentajes, color=colores, edgecolor="black")
 
-    filas.sort(key=lambda x: x[3])
-
-    # ahora graficar
-    productos = [fila[0] for fila in filas]
-    porcentajes = [fila[3] for fila in filas]
-
-    plt.figure(figsize=(12, 6))
-    plt.plot(productos, porcentajes, marker="o", linestyle="-", color="purple")
+    for barra, valor in zip(barras, porcentajes):
+        ax.text(barra.get_x() + barra.get_width()/2, barra.get_height() + 0.5,
+                f"{valor:.1f}%", ha="center", va="bottom", fontsize=9)
 
     plt.xticks(rotation=45, ha="right")
-    plt.ylabel("% de la pensión mínima")
-    plt.title("Porcentaje de la pensión mínima que representa cada producto")
-
-    plt.axhline(100, color="red", linestyle="--", label="Pensión completa")
-    plt.legend()
-    plt.grid(True, linestyle="--", alpha=0.6)
+    plt.ylabel("Porcentaje de la pensión mínima (%)")
+    plt.title("Porcentaje de la pensión mínima de 3056 CUP que representa cada producto en Revolico")
     plt.tight_layout()
     plt.show()
+
+
+
 
 
 
@@ -349,17 +384,22 @@ def tabla_averquesale():
 
 #tabla de análisis comparativo entre el costo de la cesta básica (arroz, pollo, leche, pasta dental, papel higiénico) y la pensión mínima
 
-
-def tabla_cesta_basica():
-
+def tabla_cesta_basica_mensual():
     pension = 3056
-    cesta_basica = ["arroz", "pollo", "leche-caja-1lt", "jabon", "pasta-dental", "papel-higienico"]
+    cesta_basica = {
+        "arroz": 3,              # 3 paquetes de 1kg (~7 lb)
+        "pollo": 1,              # 1 paquete (nota: puede variar según consumo)
+        "leche-caja-1lt": 3,     # 3 cajas de 1lt
+        "jabon": 2,              # 2 unidades
+        "pasta-dental": 1,       # 1 tubo
+        "papel-higienico": 1     # 1 paquete
+    }
 
     costo_total_cesta = 0
-    print("Producto             Promedio")
-    print("-" * 33)
+    print("Producto             Promedio (CUP)   Cantidad mínima   Costo mensual (CUP)")
+    print("-" * 70)
 
-    for producto in cesta_basica:
+    for producto, cantidad in cesta_basica.items():
         if producto in averquesale_datos:
             valores = []
             for anuncio in averquesale_datos[producto]:
@@ -370,12 +410,13 @@ def tabla_cesta_basica():
                     pass
             if valores:
                 promedio = sum(valores) / len(valores)
-                costo_total_cesta += promedio
-                print(f"{producto.upper():20} {promedio:.2f} CUP")
+                costo_producto = promedio * cantidad
+                costo_total_cesta += costo_producto
+                print(f"{producto.upper():20} {promedio:10.2f} CUP   {cantidad:<15} {costo_producto:10.2f} CUP")
 
-    print("-" * 33)
+    print("-" * 70)
     print(f"{'COSTO TOTAL CESTA':20} {costo_total_cesta:.2f} CUP")
-    print("-" * 33)
+    print("-" * 70)
     print(f"{'PENSIÓN MÍNIMA':20} {pension:.2f} CUP")
     print(f"{'RELACIÓN':20} {calcular_porcentaje(costo_total_cesta, pension):.2f}%")
 
@@ -390,19 +431,43 @@ def tabla_cesta_basica():
 #El siguiente gráfico circular muestra la proporción que representa cada producto dentro del costo total de la cesta básica
 
 
-def grafico_cesta_basica():
 
-    productos = ["ARROZ", "POLLO", "LECHE-CAJA-1LT", "JABON", "PASTA-DENTAL", "PAPEL-HIGIENICO"]
-    valores = [736.93, 4110.47, 2050.00, 109.25, 250.00, 400.00]
+def grafico_cesta_basica_mensual():
+    pension = 3056
 
-    plt.figure(figsize=(6, 6))
-    plt.pie(valores,
-            labels=productos,
-            autopct="%1.1f%%",
-            startangle=90,
-            pctdistance=0.85)
-    plt.title("Distribución del costo de la cesta básica")
+    # Precios promedio ajustados según cantidades mínimas
+    arroz = 736.93 * 3       # 3 paquetes (~7 lb)
+    pollo = 4110.47 * 1      # 1 paquete (nota: puede variar según consumo)
+    leche_caja = 2017.20 * 3 # 3 cajas de 1lt
+    jabon = 109.25 * 2       # 2 unidades
+    pasta_dental = 625.70 * 1
+    papel_higienico = 611.08 * 1
+
+    productos = {
+        "Arroz (3kg)": arroz,
+        "Pollo (1 paquete)": pollo,
+        "Leche caja 1lt (3)": leche_caja,
+        "Jabón (2)": jabon,
+        "Pasta dental": pasta_dental,
+        "Papel higiénico": papel_higienico
+    }
+
+    # Calcular costo total
+    costo_total = sum(productos.values())
+
+    # Crear gráfico circular (pie clásico)
+    fig, ax = plt.subplots(figsize=(8,8))
+    ax.pie(
+        productos.values(),
+        labels=productos.keys(),
+        autopct="%1.1f%%",
+        startangle=90
+    )
+
+    plt.title("Distribución del costo mensual de la cesta básica", fontsize=14)
     plt.show()
+
+
 
 
 
@@ -412,20 +477,39 @@ def grafico_cesta_basica():
 
 #gráfico que muestra la comparación directa entre el costo total de la cesta y la pensión mínima
 
-def grafico_cesta_vs_pension():
 
-    costo_total_cesta = 8210.63
+def grafico_brecha_pension_vs_cesta():
     pension = 3056
+    costo_cesta = 13828.15
+    brecha = costo_cesta - pension
+    porcentaje_pension = pension / costo_cesta * 100
+    porcentaje_brecha = brecha / costo_cesta * 100
 
-    plt.figure(figsize=(6, 6))
-    plt.pie([costo_total_cesta, pension],
-            labels=["Cesta Básica", "Pensión Mínima"],
-            autopct="%1.1f%%",
-            colors=["#ff9999", "#66b3ff"],
-            startangle=90,
-            wedgeprops={'width': 0.4})
-    plt.title("Comparación: Cesta vs Pensión")
+    fig, ax = plt.subplots(figsize=(10,4))
+    fig.patch.set_facecolor('#f5f5f5')
+
+    ax.hlines(y=1, xmin=0, xmax=costo_cesta, colors="black", linestyles="--", linewidth=3)
+    ax.barh(y=1, width=pension, height=0.15, color="dodgerblue")
+
+    ax.text(pension/2, 0.85, f"{pension:.0f} CUP ({porcentaje_pension:.1f}%)",
+            ha="center", fontsize=11, color="black", fontweight="bold")
+
+    ax.text(pension + brecha/2, 1.05, f"Faltan {brecha:.0f} CUP ({porcentaje_brecha:.1f}%)",
+            ha="center", fontsize=12, color="darkred", fontweight="bold")
+
+    ax.text(pension + brecha/2, 0.7, "BRECHA GIGANTE",
+            ha="center", fontsize=13, color="firebrick", fontweight="bold")
+
+    ax.set_xlim(0, costo_cesta * 1.1)
+    ax.set_ylim(0.6, 1.4)
+    ax.axis("off")
+    plt.title("Puente roto: pensión mínima vs costo de la cesta básica",
+              fontsize=15, fontweight="bold")
+    plt.tight_layout()
     plt.show()
+
+
+
 
 
 
